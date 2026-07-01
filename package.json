@@ -1,0 +1,19 @@
+{
+  "name": "homwok-coffee",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "dev:docker": "docker-compose up -d",
+    "db:migrate": "cd apps/api && php artisan migrate",
+    "db:seed": "cd apps/api && php artisan db:seed",
+    "db:fresh": "cd apps/api && php artisan migrate:fresh --seed",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,php,json,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.0"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
