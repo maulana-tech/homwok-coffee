@@ -16,6 +16,11 @@ class Menu extends Model
         'aktif',
     ];
 
+    protected $casts = [
+        'harga_jual' => 'float',
+        'aktif' => 'boolean',
+    ];
+
     public function resep()
     {
         return $this->hasMany(Resep::class, 'id_menu', 'id_menu');

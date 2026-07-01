@@ -16,6 +16,10 @@ class Resep extends Model
         'satuan',
     ];
 
+    protected $casts = [
+        'takaran' => 'float',
+    ];
+
     public function menu()
     {
         return $this->belongsTo(Menu::class, 'id_menu', 'id_menu');

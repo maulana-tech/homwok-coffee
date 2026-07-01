@@ -25,6 +25,10 @@ class Pegawai extends Authenticatable
         'kata_sandi',
     ];
 
+    protected $casts = [
+        'aktif' => 'boolean',
+    ];
+
     public function getAuthPassword()
     {
         return $this->kata_sandi;

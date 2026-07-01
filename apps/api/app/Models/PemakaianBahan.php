@@ -18,6 +18,12 @@ class PemakaianBahan extends Model
         'subtotal_hpp',
     ];
 
+    protected $casts = [
+        'qty_dipakai' => 'float',
+        'harga_beli' => 'float',
+        'subtotal_hpp' => 'float',
+    ];
+
     public function detailPenjualan()
     {
         return $this->belongsTo(DetailPenjualan::class, 'id_detail_penjualan', 'id_detail_penjualan');

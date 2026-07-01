@@ -19,6 +19,14 @@ class DetailPenjualan extends Model
         'hpp_menu',
     ];
 
+    protected $casts = [
+        'qty' => 'integer',
+        'harga_jual' => 'float',
+        'subtotal' => 'float',
+        'diskon' => 'float',
+        'hpp_menu' => 'float',
+    ];
+
     public function penjualan()
     {
         return $this->belongsTo(Penjualan::class, 'id_penjualan', 'id_penjualan');
@@ -27,5 +35,10 @@ class DetailPenjualan extends Model
     public function menu()
     {
         return $this->belongsTo(Menu::class, 'id_menu', 'id_menu');
+    }
+
+    public function pemakaianBahan()
+    {
+        return $this->hasMany(PemakaianBahan::class, 'id_detail_penjualan', 'id_detail_penjualan');
     }
 }

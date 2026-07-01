@@ -18,6 +18,13 @@ class DetailPembelian extends Model
         'tanggal_kadaluarsa',
     ];
 
+    protected $casts = [
+        'qty_awal' => 'float',
+        'sisa_qty' => 'float',
+        'harga_beli' => 'float',
+        'tanggal_kadaluarsa' => 'date',
+    ];
+
     public function pembelian()
     {
         return $this->belongsTo(Pembelian::class, 'id_pembelian', 'id_pembelian');
@@ -26,5 +33,10 @@ class DetailPembelian extends Model
     public function bahanBaku()
     {
         return $this->belongsTo(BahanBaku::class, 'id_bahan', 'id_bahan');
+    }
+
+    public function scopeTersedia($query)
+    {
+        return $query->where('sisa_qty', '>', 0);
     }
 }

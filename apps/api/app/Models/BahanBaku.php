@@ -14,4 +14,18 @@ class BahanBaku extends Model
         'satuan',
         'stok_minimum',
     ];
+
+    protected $casts = [
+        'stok_minimum' => 'float',
+    ];
+
+    public function detailPembelian()
+    {
+        return $this->hasMany(DetailPembelian::class, 'id_bahan', 'id_bahan');
+    }
+
+    public function resep()
+    {
+        return $this->hasMany(Resep::class, 'id_bahan', 'id_bahan');
+    }
 }

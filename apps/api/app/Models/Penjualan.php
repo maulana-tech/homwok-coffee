@@ -21,6 +21,16 @@ class Penjualan extends Model
         'laba_kotor',
     ];
 
+    protected $casts = [
+        'tanggal_jual' => 'datetime',
+        'total_jual' => 'float',
+        'total_diskon' => 'float',
+        'pajak' => 'float',
+        'grand_total' => 'float',
+        'total_hpp' => 'float',
+        'laba_kotor' => 'float',
+    ];
+
     public function pegawai()
     {
         return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id_pegawai');

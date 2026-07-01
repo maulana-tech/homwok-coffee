@@ -17,6 +17,11 @@ class Pembelian extends Model
         'total_beli',
     ];
 
+    protected $casts = [
+        'tanggal_beli' => 'datetime',
+        'total_beli' => 'float',
+    ];
+
     public function pegawai()
     {
         return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id_pegawai');
