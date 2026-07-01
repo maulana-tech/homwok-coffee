@@ -7,6 +7,10 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0"
   },
+  "peerDependencies": {
+    "react": "^18",
+    "react-dom": "^18"
+  },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
