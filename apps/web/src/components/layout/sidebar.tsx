@@ -9,8 +9,10 @@ import type { Pegawai } from "@homwok/types";
 import {
   ChevronLeft,
   ChevronRight,
+  ClipboardList,
   Coffee,
   FileText,
+  Layers,
   LogOut,
   Package,
   ShoppingBag,
@@ -36,8 +38,10 @@ const menuItems: NavItem[] = [
   { icon: Users, label: "Pegawai", href: "/master/pegawai", roles: ["barista", "manager"] },
   { icon: ShoppingBag, label: "Pembelian", href: "/pembelian", roles: ["barista", "manager"] },
   { icon: TrendingUp, label: "Laporan Penjualan", href: "/laporan/penjualan", roles: ["manager"] },
+  { icon: ClipboardList, label: "Laporan Pembelian", href: "/laporan/pembelian", roles: ["manager"] },
   { icon: FileText, label: "Laporan HPP", href: "/laporan/hpp", roles: ["manager"] },
   { icon: TrendingUp, label: "Laba Rugi", href: "/laporan/laba-rugi", roles: ["manager"] },
+  { icon: Layers, label: "Kartu Persediaan", href: "/laporan/kartu-persediaan", roles: ["manager"] },
 ];
 
 export function Sidebar({ user }: { user: Pegawai }) {

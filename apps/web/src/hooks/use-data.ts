@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   fakeFetch,
   sampleBahan,
+  sampleKartuPergerakan,
   sampleMenus,
   samplePegawai,
   samplePembelian,
@@ -42,5 +43,17 @@ export function usePenjualan() {
   return useQuery({
     queryKey: ["penjualan"],
     queryFn: () => fakeFetch(samplePenjualan),
+  });
+}
+
+/**
+ * Pergerakan kartu persediaan FIFO untuk satu bahan.
+ * TODO: `(await api.get('/laporan/kartu-persediaan', { params: { id_bahan } })).data.data`.
+ */
+export function useKartuPersediaan(idBahan: number | null) {
+  return useQuery({
+    queryKey: ["kartu-persediaan", idBahan],
+    queryFn: () => fakeFetch(idBahan ? (sampleKartuPergerakan[idBahan] ?? []) : []),
+    enabled: idBahan !== null,
   });
 }

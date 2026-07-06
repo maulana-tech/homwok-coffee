@@ -36,7 +36,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // Reports (manager only)
     Route::middleware('role:manager')->group(function () {
         Route::get('laporan/penjualan', [LaporanController::class, 'penjualan']);
+        Route::get('laporan/pembelian', [LaporanController::class, 'pembelian']);
         Route::get('laporan/hpp', [LaporanController::class, 'hpp']);
         Route::get('laporan/laba-rugi', [LaporanController::class, 'labaRugi']);
+        Route::get('laporan/kartu-persediaan', [LaporanController::class, 'kartuPersediaan']);
     });
 });

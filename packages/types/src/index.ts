@@ -108,3 +108,33 @@ export interface PemakaianBahan {
   bahan_baku?: BahanBaku;
   detail_pembelian?: DetailPembelian;
 }
+
+// Report Types
+/** Satu baris pergerakan pada kartu persediaan (kartu stok FIFO). */
+export interface KartuPersediaanRow {
+  tanggal: string;
+  referensi: string;
+  keterangan: string; // "Pembelian" | "Penjualan"
+  masuk_qty: number;
+  masuk_harga: number;
+  masuk_total: number;
+  keluar_qty: number;
+  keluar_harga: number;
+  keluar_total: number;
+  /** Saldo berjalan — dihitung server (atau klien untuk data sample). */
+  saldo_qty?: number;
+  saldo_nilai?: number;
+}
+
+export interface KartuPersediaan {
+  bahan: Pick<BahanBaku, 'id_bahan' | 'nama_bahan' | 'satuan'>;
+  summary: {
+    total_masuk_qty: number;
+    total_masuk_nilai: number;
+    total_keluar_qty: number;
+    total_keluar_nilai: number;
+    saldo_qty: number;
+    saldo_nilai: number;
+  };
+  data: KartuPersediaanRow[];
+}

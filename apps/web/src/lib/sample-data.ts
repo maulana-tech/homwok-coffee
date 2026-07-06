@@ -7,6 +7,7 @@
  */
 import type {
   BahanBaku,
+  KartuPersediaanRow,
   Menu,
   Pegawai,
   Pembelian,
@@ -106,6 +107,65 @@ export const samplePenjualan: Penjualan[] = [
 export const sampleKategori = Array.from(
   new Set(sampleMenus.map((m) => m.kategori)),
 );
+
+// --- Kartu persediaan (kartu stok FIFO) ---------------------------------
+const masuk = (
+  tanggal: string,
+  referensi: string,
+  qty: number,
+  harga: number,
+): KartuPersediaanRow => ({
+  tanggal,
+  referensi,
+  keterangan: "Pembelian",
+  masuk_qty: qty,
+  masuk_harga: harga,
+  masuk_total: qty * harga,
+  keluar_qty: 0,
+  keluar_harga: 0,
+  keluar_total: 0,
+});
+
+const keluar = (
+  tanggal: string,
+  referensi: string,
+  qty: number,
+  harga: number,
+): KartuPersediaanRow => ({
+  tanggal,
+  referensi,
+  keterangan: "Penjualan",
+  masuk_qty: 0,
+  masuk_harga: 0,
+  masuk_total: 0,
+  keluar_qty: qty,
+  keluar_harga: harga,
+  keluar_total: qty * harga,
+});
+
+/**
+ * Pergerakan kartu stok FIFO per id_bahan (mode demo). Saldo berjalan sengaja
+ * TIDAK disimpan di sini — dihitung ulang di halaman, sama seperti output API.
+ * Perhatikan: keluar memakai harga lot tertua dulu (FIFO).
+ */
+export const sampleKartuPergerakan: Record<number, KartuPersediaanRow[]> = {
+  // Biji Kopi Arabika — 2 lot masuk (harga naik), 1 keluar dari lot termurah.
+  1: [
+    masuk("2026-06-28", "PO-20260628-0001", 3000, 180),
+    masuk("2026-06-30", "PO-20260630-0002", 3000, 210),
+    keluar("2026-07-01", "NJ-20260701-001", 1800, 180),
+  ],
+  // Susu Segar
+  2: [
+    masuk("2026-06-30", "PO-20260630-0002", 2000, 24),
+    keluar("2026-07-01", "NJ-20260701-002", 500, 24),
+  ],
+  // Cokelat Bubuk
+  6: [
+    masuk("2026-06-28", "PO-20260628-0001", 1200, 175),
+    keluar("2026-07-01", "NJ-20260701-003", 300, 175),
+  ],
+};
 
 /** Simulate a network fetch so consumers can keep the async query shape. */
 export function fakeFetch<T>(data: T, ms = 300): Promise<T> {
