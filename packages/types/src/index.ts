@@ -24,6 +24,10 @@ export interface Menu {
   kategori: string;
   harga_jual: number;
   aktif: boolean;
+  /** Stored path relative to the public disk, e.g. "menu/abc.jpg" (null if no photo). */
+  foto?: string | null;
+  /** Full public URL to the photo, computed by the API accessor (null if no photo). */
+  foto_url?: string | null;
   resep?: Resep[];
 }
 

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('nama_menu');
             $table->string('kategori');
             $table->decimal('harga_jual', 15, 2);
+            $table->string('foto')->nullable(); // path di disk 'public', mis. "menu/abc.jpg"
             $table->boolean('aktif')->default(true);
             $table->timestamps();
         });

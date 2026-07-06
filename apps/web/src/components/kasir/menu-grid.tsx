@@ -22,7 +22,7 @@ export function MenuGrid({ onSelect }: { onSelect: (menu: Menu) => void }) {
             key={c}
             onClick={() => setCat(c)}
             className={cn(
-              "px-4 py-2 whitespace-nowrap rounded-lg border border-border uppercase text-sm font-bold transition-colors",
+              "px-4 py-2 whitespace-nowrap rounded-lg border border-border uppercase text-sm font-medium transition-colors",
               cat === c
                 ? "bg-primary text-primary-foreground"
                 : "bg-background hover:bg-secondary",
@@ -36,7 +36,7 @@ export function MenuGrid({ onSelect }: { onSelect: (menu: Menu) => void }) {
       {isLoading ? (
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, i) => (
-            <Skeleton key={i} className="h-40" />
+            <Skeleton key={i} className="h-56 rounded-lg" />
           ))}
         </div>
       ) : (
@@ -47,6 +47,7 @@ export function MenuGrid({ onSelect }: { onSelect: (menu: Menu) => void }) {
               name={menu.nama_menu}
               price={menu.harga_jual}
               category={menu.kategori}
+              imageUrl={menu.foto_url}
               stockStatus={menu.stockStatus}
               onClick={() => menu.stockStatus !== "out" && onSelect(menu)}
             />

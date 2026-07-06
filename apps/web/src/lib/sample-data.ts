@@ -43,19 +43,27 @@ export const SAMPLE_USERS: SampleUser[] = [
   },
 ];
 
+/**
+ * Foto placeholder deterministik (picsum) hanya untuk mode demo.
+ * Saat backend nyala, `foto_url` datang dari accessor Menu (Storage::url).
+ * Sebagian menu sengaja dibiarkan tanpa foto untuk menunjukkan ikon fallback.
+ */
+const fotoDemo = (seed: string) =>
+  `https://picsum.photos/seed/${seed}/400/300`;
+
 export const sampleMenus: SampleMenu[] = [
-  { id_menu: 1, nama_menu: "Espresso Solo", kategori: "Coffee", harga_jual: 15000, aktif: true, stockStatus: "available" },
-  { id_menu: 2, nama_menu: "Caffe Latte", kategori: "Coffee", harga_jual: 25000, aktif: true, stockStatus: "available" },
-  { id_menu: 3, nama_menu: "Kopi Susu Aren", kategori: "Coffee", harga_jual: 22000, aktif: true, stockStatus: "low" },
-  { id_menu: 4, nama_menu: "Cappuccino", kategori: "Coffee", harga_jual: 24000, aktif: true, stockStatus: "available" },
+  { id_menu: 1, nama_menu: "Espresso Solo", kategori: "Coffee", harga_jual: 15000, aktif: true, stockStatus: "available", foto_url: fotoDemo("espresso") },
+  { id_menu: 2, nama_menu: "Caffe Latte", kategori: "Coffee", harga_jual: 25000, aktif: true, stockStatus: "available", foto_url: fotoDemo("latte") },
+  { id_menu: 3, nama_menu: "Kopi Susu Aren", kategori: "Coffee", harga_jual: 22000, aktif: true, stockStatus: "low", foto_url: fotoDemo("kopisusu") },
+  { id_menu: 4, nama_menu: "Cappuccino", kategori: "Coffee", harga_jual: 24000, aktif: true, stockStatus: "available", foto_url: fotoDemo("cappuccino") },
   { id_menu: 5, nama_menu: "Americano", kategori: "Coffee", harga_jual: 20000, aktif: true, stockStatus: "available" },
-  { id_menu: 6, nama_menu: "Matcha Latte", kategori: "Non-Coffee", harga_jual: 28000, aktif: true, stockStatus: "available" },
-  { id_menu: 7, nama_menu: "Chocolate", kategori: "Non-Coffee", harga_jual: 26000, aktif: true, stockStatus: "available" },
-  { id_menu: 8, nama_menu: "Lemon Tea", kategori: "Non-Coffee", harga_jual: 18000, aktif: true, stockStatus: "out" },
-  { id_menu: 9, nama_menu: "Croissant", kategori: "Snack", harga_jual: 20000, aktif: true, stockStatus: "available" },
+  { id_menu: 6, nama_menu: "Matcha Latte", kategori: "Non-Coffee", harga_jual: 28000, aktif: true, stockStatus: "available", foto_url: fotoDemo("matcha") },
+  { id_menu: 7, nama_menu: "Chocolate", kategori: "Non-Coffee", harga_jual: 26000, aktif: true, stockStatus: "available", foto_url: fotoDemo("chocolate") },
+  { id_menu: 8, nama_menu: "Lemon Tea", kategori: "Non-Coffee", harga_jual: 18000, aktif: true, stockStatus: "out", foto_url: fotoDemo("lemontea") },
+  { id_menu: 9, nama_menu: "Croissant", kategori: "Snack", harga_jual: 20000, aktif: true, stockStatus: "available", foto_url: fotoDemo("croissant") },
   { id_menu: 10, nama_menu: "Butter Toast", kategori: "Snack", harga_jual: 17000, aktif: true, stockStatus: "low" },
-  { id_menu: 11, nama_menu: "French Fries", kategori: "Snack", harga_jual: 22000, aktif: true, stockStatus: "available" },
-  { id_menu: 12, nama_menu: "Affogato", kategori: "Coffee", harga_jual: 30000, aktif: false, stockStatus: "available" },
+  { id_menu: 11, nama_menu: "French Fries", kategori: "Snack", harga_jual: 22000, aktif: true, stockStatus: "available", foto_url: fotoDemo("fries") },
+  { id_menu: 12, nama_menu: "Affogato", kategori: "Coffee", harga_jual: 30000, aktif: false, stockStatus: "available", foto_url: fotoDemo("affogato") },
 ];
 
 export interface SampleBahan extends BahanBaku {

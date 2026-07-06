@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import {
   POSButton,
   Input,
@@ -20,7 +20,7 @@ import {
 } from "@homwok/ui";
 import { formatRupiah } from "@homwok/lib";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Search } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, ImagePlus, ImageOff, X } from "lucide-react";
 import { useMenus } from "@/hooks/use-data";
 import type { SampleMenu } from "@/lib/sample-data";
 import { DataTable, type DataTableColumn } from "@/components/master/data-table";
@@ -31,6 +31,10 @@ interface MenuForm {
   kategori: string;
   harga_jual: string;
   aktif: boolean;
+  /** URL preview foto (object URL saat file baru dipilih, atau foto_url lama). */
+  foto_url: string | null;
+  /** File yang dipilih — dikirim sebagai multipart ke API saat wiring nyata. */
+  fotoFile: File | null;
 }
 
 const EMPTY_FORM: MenuForm = {
@@ -38,7 +42,11 @@ const EMPTY_FORM: MenuForm = {
   kategori: "Coffee",
   harga_jual: "",
   aktif: true,
+  foto_url: null,
+  fotoFile: null,
 };
+
+const MAX_FOTO_MB = 2;
 
 export default function MasterMenuPage() {
   const { data, isLoading } = useMenus();
@@ -78,9 +86,33 @@ export default function MasterMenuPage() {
       kategori: menu.kategori,
       harga_jual: String(menu.harga_jual),
       aktif: menu.aktif,
+      foto_url: menu.foto_url ?? null,
+      fotoFile: null,
     });
     setFormOpen(true);
   };
+
+  const handlePickFoto = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = ""; // izinkan pilih file sama lagi setelah dihapus
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast.error("File harus berupa gambar");
+      return;
+    }
+    if (file.size > MAX_FOTO_MB * 1024 * 1024) {
+      toast.error(`Ukuran foto maksimal ${MAX_FOTO_MB} MB`);
+      return;
+    }
+    setForm((f) => ({
+      ...f,
+      fotoFile: file,
+      foto_url: URL.createObjectURL(file),
+    }));
+  };
+
+  const removeFoto = () =>
+    setForm((f) => ({ ...f, fotoFile: null, foto_url: null }));
 
   const handleSave = () => {
     const nama = form.nama_menu.trim();
@@ -104,11 +136,15 @@ export default function MasterMenuPage() {
                 kategori: form.kategori,
                 harga_jual: harga,
                 aktif: form.aktif,
+                foto_url: form.foto_url,
               }
             : m,
         ),
       );
-      // TODO: await api.put(`/menu/${editing.id_menu}`, values)
+      // TODO: kirim multipart (POST + _method=PUT karena file):
+      //   const fd = new FormData();
+      //   fd.append("nama_menu", nama); ...; if (form.fotoFile) fd.append("foto", form.fotoFile);
+      //   await api.post(`/menu/${editing.id_menu}?_method=PUT`, fd);
       toast.success(`Menu "${nama}" diperbarui`);
     } else {
       const nextId =
@@ -119,10 +155,12 @@ export default function MasterMenuPage() {
         kategori: form.kategori,
         harga_jual: harga,
         aktif: form.aktif,
+        foto_url: form.foto_url,
         stockStatus: "available",
       };
       setRows((prev) => [...prev, created]);
-      // TODO: await api.post('/menu', values)
+      // TODO: const fd = new FormData(); ...; if (form.fotoFile) fd.append("foto", form.fotoFile);
+      //       await api.post("/menu", fd);
       toast.success(`Menu "${nama}" ditambahkan`);
     }
     setFormOpen(false);
@@ -137,7 +175,25 @@ export default function MasterMenuPage() {
   };
 
   const columns: DataTableColumn<SampleMenu>[] = [
-    { key: "nama_menu", header: "Nama Menu", className: "font-bold uppercase" },
+    {
+      key: "foto",
+      header: "Foto",
+      className: "w-14",
+      render: (m) =>
+        m.foto_url ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={m.foto_url}
+            alt={m.nama_menu}
+            className="h-10 w-10 rounded-lg border border-border object-cover"
+          />
+        ) : (
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-muted">
+            <ImageOff className="h-4 w-4 text-muted-foreground/50" />
+          </div>
+        ),
+    },
+    { key: "nama_menu", header: "Nama Menu", className: "font-medium uppercase" },
     { key: "kategori", header: "Kategori" },
     {
       key: "harga_jual",
@@ -159,7 +215,7 @@ export default function MasterMenuPage() {
     <div className="space-y-6">
       <div className="flex items-end justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold uppercase tracking-tight">
+          <h1 className="text-2xl font-semibold uppercase tracking-tight">
             Master Menu
           </h1>
           <p className="text-sm text-muted-foreground uppercase tracking-widest">
@@ -213,7 +269,7 @@ export default function MasterMenuPage() {
       <Dialog open={formOpen} onOpenChange={setFormOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle className="uppercase font-bold tracking-tight">
+            <DialogTitle className="uppercase font-semibold tracking-tight">
               {editing ? "Edit Menu" : "Tambah Menu"}
             </DialogTitle>
             <DialogDescription>
@@ -225,7 +281,7 @@ export default function MasterMenuPage() {
 
           <div className="space-y-4 py-2">
             <div className="space-y-1.5">
-              <Label htmlFor="nama_menu" className="uppercase text-xs font-bold">
+              <Label htmlFor="nama_menu" className="uppercase text-xs font-medium">
                 Nama Menu
               </Label>
               <Input
@@ -240,7 +296,7 @@ export default function MasterMenuPage() {
             </div>
 
             <div className="space-y-1.5">
-              <Label className="uppercase text-xs font-bold">Kategori</Label>
+              <Label className="uppercase text-xs font-medium">Kategori</Label>
               <Select
                 value={form.kategori}
                 onValueChange={(v) => setForm((f) => ({ ...f, kategori: v }))}
@@ -261,7 +317,7 @@ export default function MasterMenuPage() {
             <div className="space-y-1.5">
               <Label
                 htmlFor="harga_jual"
-                className="uppercase text-xs font-bold"
+                className="uppercase text-xs font-medium"
               >
                 Harga Jual
               </Label>
@@ -278,6 +334,44 @@ export default function MasterMenuPage() {
               />
             </div>
 
+            <div className="space-y-1.5">
+              <Label className="uppercase text-xs font-medium">Foto Menu</Label>
+              {form.foto_url ? (
+                <div className="relative w-fit">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={form.foto_url}
+                    alt="Preview foto menu"
+                    className="h-28 w-28 rounded-lg border border-border object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={removeFoto}
+                    aria-label="Hapus foto"
+                    className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full border border-border bg-background shadow-sm hover:bg-secondary"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <label className="flex h-28 w-28 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-border bg-muted/40 text-muted-foreground transition-colors hover:bg-secondary">
+                  <ImagePlus className="h-6 w-6" />
+                  <span className="text-[10px] uppercase tracking-wider">
+                    Pilih foto
+                  </span>
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    className="hidden"
+                    onChange={handlePickFoto}
+                  />
+                </label>
+              )}
+              <p className="text-[11px] text-muted-foreground">
+                JPG/PNG/WebP, maks {MAX_FOTO_MB} MB.
+              </p>
+            </div>
+
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input
                 type="checkbox"
@@ -287,7 +381,7 @@ export default function MasterMenuPage() {
                 }
                 className="w-5 h-5 rounded-lg border border-border accent-black"
               />
-              <span className="uppercase text-sm font-bold">Menu Aktif</span>
+              <span className="uppercase text-sm font-medium">Menu Aktif</span>
             </label>
           </div>
 

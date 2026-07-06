@@ -4,7 +4,7 @@
 > Monorepo Turborepo + pnpm: **Next.js 14** (`apps/web`) + **Laravel** (`apps/api`), paket bersama `@homwok/{ui,types,lib}`.
 > Dokumen blueprint: `homwok-coffee-pos.md` (sistem/FIFO) & `homwok-coffee-frontend.md` (UI).
 
-_Terakhir diperbarui: 2026-07-01._
+_Terakhir diperbarui: 2026-07-06._
 
 ---
 
@@ -37,14 +37,14 @@ homwok-coffee/
 **Frontend (`apps/web`) — semua halaman (mode sample data)**
 - Login + dashboard layout (auth guard) + sidebar/navbar role-based.
 - **Kasir**: grid menu + filter kategori, keranjang (panel/sheet responsif), checkout + struk cetak.
-- **Master**: menu, bahan baku, pegawai (tabel + CRUD dialog).
+- **Master**: menu, bahan baku, pegawai (tabel + CRUD dialog). Menu punya **foto** (upload + preview, thumbnail di tabel, fallback ikon per kategori di kartu kasir).
 - **Pembelian**: list + form multi-baris (tiap baris = lot FIFO).
 - **Laporan**: penjualan, HPP, laba-rugi + tombol export (stub).
 - Infra: `lib/api.ts` (axios + Bearer), providers (auth+query), `hooks/use-cart`, `hooks/use-data`.
 
 **Backend (`apps/api`) — kode lengkap**
 - `FifoCostCalculator` (transaksi + `lockForUpdate`, konsumsi FIFO, audit trail).
-- `AuthController` (login/logout/me), CRUD `Menu/BahanBaku/Pegawai/Resep`.
+- `AuthController` (login/logout/me), CRUD `Menu/BahanBaku/Pegawai/Resep` (Menu: upload foto ke disk `public`, accessor `foto_url`).
 - `PembelianController` (buat lot), `PenjualanController` (FIFO), `PersediaanController` (stok + `/cek`), `LaporanController` (JSON + export CSV/PDF, manager-only).
 - Wiring: `bootstrap/app.php` (api routing + alias `role`), `routes/api.php`, `RoleMiddleware`, `config/cors.php`, `.env` (sqlite).
 - Model: `$casts` + relasi `BahanBaku`, scope `tersedia()`.
@@ -66,6 +66,7 @@ composer install
 php artisan key:generate          # .env sudah tersedia (sqlite)
 touch database/database.sqlite
 php artisan migrate --seed
+php artisan storage:link          # symlink public/storage → storage/app/public (foto menu)
 php artisan test                  # verifikasi FifoCalculatorTest hijau
 php artisan serve --port=8000     # http://localhost:8000/api
 ```
