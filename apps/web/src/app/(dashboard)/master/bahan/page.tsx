@@ -144,7 +144,7 @@ export default function MasterBahanPage() {
       key: "nama_bahan",
       header: "Nama Bahan",
       render: (b) => (
-        <span className="flex items-center gap-2 font-bold uppercase">
+        <span className="flex items-center gap-2 font-medium uppercase">
           {b.status === "warning" && (
             <AlertTriangle className="w-4 h-4 text-destructive shrink-0" />
           )}
@@ -183,7 +183,7 @@ export default function MasterBahanPage() {
     <div className="space-y-6">
       <div className="flex items-end justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold uppercase tracking-tight">
+          <h1 className="text-2xl font-semibold uppercase tracking-tight">
             Bahan Baku
           </h1>
           <p className="text-sm text-muted-foreground uppercase tracking-widest">
@@ -231,7 +231,7 @@ export default function MasterBahanPage() {
       <Dialog open={formOpen} onOpenChange={setFormOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle className="uppercase font-bold tracking-tight">
+            <DialogTitle className="uppercase font-semibold tracking-tight">
               {editing ? "Edit Bahan" : "Tambah Bahan"}
             </DialogTitle>
             <DialogDescription>
@@ -243,7 +243,7 @@ export default function MasterBahanPage() {
 
           <div className="space-y-4 py-2">
             <div className="space-y-1.5">
-              <Label htmlFor="nama_bahan" className="uppercase text-xs font-bold">
+              <Label htmlFor="nama_bahan" className="uppercase text-xs font-medium">
                 Nama Bahan
               </Label>
               <Input
@@ -258,7 +258,7 @@ export default function MasterBahanPage() {
             </div>
 
             <div className="space-y-1.5">
-              <Label className="uppercase text-xs font-bold">Satuan</Label>
+              <Label className="uppercase text-xs font-medium">Satuan</Label>
               <Select
                 value={form.satuan}
                 onValueChange={(v) => setForm((f) => ({ ...f, satuan: v }))}
@@ -279,7 +279,7 @@ export default function MasterBahanPage() {
             <div className="space-y-1.5">
               <Label
                 htmlFor="stok_minimum"
-                className="uppercase text-xs font-bold"
+                className="uppercase text-xs font-medium"
               >
                 Stok Minimum
               </Label>

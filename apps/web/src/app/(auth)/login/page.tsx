@@ -31,7 +31,7 @@ export default function LoginPage() {
           <div className="bg-primary w-16 h-16 flex items-center justify-center mx-auto mb-4">
             <Coffee className="w-8 h-8 text-primary-foreground" />
           </div>
-          <h1 className="text-2xl font-bold uppercase tracking-tight">Homwok Coffee</h1>
+          <h1 className="text-2xl font-semibold uppercase tracking-tight">Homwok Coffee</h1>
           <p className="text-muted-foreground mt-1 uppercase text-xs tracking-widest">
             Sistem Kasir POS
           </p>

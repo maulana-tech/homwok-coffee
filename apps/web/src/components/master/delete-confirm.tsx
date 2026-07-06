@@ -31,7 +31,7 @@ export function DeleteConfirm({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-sm">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 uppercase font-bold tracking-tight">
+          <DialogTitle className="flex items-center gap-2 uppercase font-semibold tracking-tight">
             <AlertTriangle className="w-5 h-5 text-destructive shrink-0" />
             {title}
           </DialogTitle>

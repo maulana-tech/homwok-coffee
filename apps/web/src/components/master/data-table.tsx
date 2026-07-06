@@ -62,7 +62,7 @@ export function DataTable<T>({
               <TableHead
                 key={col.key}
                 className={cn(
-                  "uppercase font-bold tracking-tight text-primary",
+                  "uppercase font-medium tracking-tight text-primary",
                   col.className,
                 )}
               >
@@ -70,7 +70,7 @@ export function DataTable<T>({
               </TableHead>
             ))}
             {actions && (
-              <TableHead className="uppercase font-bold tracking-tight text-primary text-right">
+              <TableHead className="uppercase font-medium tracking-tight text-primary text-right">
                 Aksi
               </TableHead>
             )}

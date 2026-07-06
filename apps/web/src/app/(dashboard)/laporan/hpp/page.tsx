@@ -50,7 +50,7 @@ export default function LaporanHppPage() {
           <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
             Laporan
           </p>
-          <h1 className="text-2xl font-bold uppercase tracking-tight">HPP</h1>
+          <h1 className="text-2xl font-semibold uppercase tracking-tight">HPP</h1>
         </div>
         <div className="flex gap-2">
           <POSButton variant="outline" onClick={() => handleExport("excel")}>
@@ -66,12 +66,12 @@ export default function LaporanHppPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card className="rounded-lg border border-border shadow-md">
           <CardHeader className="pb-2">
-            <CardDescription className="uppercase text-xs font-bold tracking-widest">
+            <CardDescription className="uppercase text-xs font-medium tracking-widest">
               Total HPP
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold font-mono">
+            <p className="text-2xl font-semibold font-mono">
               {formatRupiah(summary.totalHpp)}
             </p>
           </CardContent>
@@ -79,12 +79,12 @@ export default function LaporanHppPage() {
 
         <Card className="rounded-lg border border-border shadow-md">
           <CardHeader className="pb-2">
-            <CardDescription className="uppercase text-xs font-bold tracking-widest">
+            <CardDescription className="uppercase text-xs font-medium tracking-widest">
               Total Penjualan
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold font-mono">
+            <p className="text-2xl font-semibold font-mono">
               {formatRupiah(summary.totalPenjualan)}
             </p>
           </CardContent>
@@ -92,12 +92,12 @@ export default function LaporanHppPage() {
 
         <Card className="rounded-lg border border-border bg-primary text-primary-foreground shadow-md">
           <CardHeader className="pb-2">
-            <CardDescription className="uppercase text-xs font-bold tracking-widest text-primary-foreground/80">
+            <CardDescription className="uppercase text-xs font-medium tracking-widest text-primary-foreground/80">
               Rata-rata Margin
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold font-mono">
+            <p className="text-3xl font-semibold font-mono">
               {formatPct(summary.avgMargin)}
             </p>
           </CardContent>
@@ -113,27 +113,27 @@ export default function LaporanHppPage() {
           </TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="uppercase font-bold">No. Nota</TableHead>
-              <TableHead className="uppercase font-bold">Tanggal</TableHead>
-              <TableHead className="uppercase font-bold text-right">
+              <TableHead className="uppercase font-medium">No. Nota</TableHead>
+              <TableHead className="uppercase font-medium">Tanggal</TableHead>
+              <TableHead className="uppercase font-medium text-right">
                 Penjualan
               </TableHead>
-              <TableHead className="uppercase font-bold text-right">HPP</TableHead>
-              <TableHead className="uppercase font-bold text-right">Margin</TableHead>
+              <TableHead className="uppercase font-medium text-right">HPP</TableHead>
+              <TableHead className="uppercase font-medium text-right">Margin</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {samplePenjualan.map((s) => (
               <TableRow key={s.id_penjualan}>
-                <TableCell className="font-mono font-bold">{s.nomor_nota}</TableCell>
+                <TableCell className="font-mono font-medium">{s.nomor_nota}</TableCell>
                 <TableCell>{formatDate(s.tanggal_jual)}</TableCell>
-                <TableCell className="text-right font-mono font-bold">
+                <TableCell className="text-right font-mono font-medium">
                   {formatRupiah(s.grand_total)}
                 </TableCell>
                 <TableCell className="text-right font-mono">
                   {formatRupiah(s.total_hpp)}
                 </TableCell>
-                <TableCell className="text-right font-mono font-bold">
+                <TableCell className="text-right font-mono font-medium">
                   {formatPct(marginPct(s.laba_kotor, s.grand_total))}
                 </TableCell>
               </TableRow>

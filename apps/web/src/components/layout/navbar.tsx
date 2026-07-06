@@ -13,7 +13,7 @@ export function Navbar() {
         <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
           Homwok Coffee
         </p>
-        <h1 className="font-bold uppercase tracking-tight leading-none">
+        <h1 className="font-semibold uppercase tracking-tight leading-none">
           Sistem Kasir POS
         </h1>
       </div>
@@ -21,7 +21,7 @@ export function Navbar() {
       <div className="flex items-center gap-4">
         {user && (
           <div className="text-right hidden sm:block">
-            <p className="font-bold text-sm uppercase leading-none">
+            <p className="font-medium text-sm uppercase leading-none">
               {user.nama_lengkap}
             </p>
             <p className="text-xs text-muted-foreground uppercase">{user.peran}</p>

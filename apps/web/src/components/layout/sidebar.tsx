@@ -59,7 +59,7 @@ export function Sidebar({ user }: { user: Pegawai }) {
             <div className="bg-primary p-1.5">
               <Coffee className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-bold text-lg uppercase tracking-tight">Homwok</span>
+            <span className="font-semibold text-lg uppercase tracking-tight">Homwok</span>
           </div>
         )}
         <button
@@ -84,7 +84,7 @@ export function Sidebar({ user }: { user: Pegawai }) {
               className={cn(
                 "flex items-center gap-3 px-3 py-2 border transition-colors",
                 active
-                  ? "bg-primary text-primary-foreground border-border font-bold"
+                  ? "bg-primary text-primary-foreground border-border font-medium"
                   : "border-transparent hover:bg-secondary hover:border-border",
                 collapsed && "justify-center",
               )}
@@ -99,7 +99,7 @@ export function Sidebar({ user }: { user: Pegawai }) {
       <div className="p-3 border-t border-border">
         {!collapsed && (
           <div className="mb-2 px-2">
-            <p className="font-bold text-sm uppercase truncate">{user.nama_lengkap}</p>
+            <p className="font-medium text-sm uppercase truncate">{user.nama_lengkap}</p>
             <p className="text-xs text-muted-foreground uppercase">{user.peran}</p>
           </div>
         )}
@@ -112,7 +112,7 @@ export function Sidebar({ user }: { user: Pegawai }) {
           )}
         >
           <LogOut size={20} />
-          {!collapsed && <span className="uppercase text-sm font-bold">Keluar</span>}
+          {!collapsed && <span className="uppercase text-sm font-medium">Keluar</span>}
         </button>
       </div>
     </aside>

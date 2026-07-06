@@ -150,7 +150,7 @@ export default function PembelianPage() {
           <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
             Transaksi
           </p>
-          <h1 className="text-2xl font-bold uppercase tracking-tight">
+          <h1 className="text-2xl font-semibold uppercase tracking-tight">
             Pembelian
           </h1>
         </div>
@@ -168,7 +168,7 @@ export default function PembelianPage() {
 
           <DialogContent className="max-w-2xl">
             <DialogHeader>
-              <DialogTitle className="uppercase font-bold tracking-tight">
+              <DialogTitle className="uppercase font-semibold tracking-tight">
                 Tambah Pembelian
               </DialogTitle>
               <DialogDescription>
@@ -180,7 +180,7 @@ export default function PembelianPage() {
               {/* Header fields */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <Label htmlFor="pemasok" className="uppercase text-xs font-bold">
+                  <Label htmlFor="pemasok" className="uppercase text-xs font-medium">
                     Pemasok
                   </Label>
                   <Input
@@ -192,7 +192,7 @@ export default function PembelianPage() {
                   />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="tanggal" className="uppercase text-xs font-bold">
+                  <Label htmlFor="tanggal" className="uppercase text-xs font-medium">
                     Tanggal Beli
                   </Label>
                   <Input
@@ -208,14 +208,14 @@ export default function PembelianPage() {
               {/* Dynamic line items */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="uppercase text-xs font-bold tracking-widest">
+                  <span className="uppercase text-xs font-medium tracking-widest">
                     Rincian Bahan
                   </span>
                   <Button
                     type="button"
                     variant="outline"
                     size="sm"
-                    className="rounded-lg border border-border uppercase font-bold"
+                    className="rounded-lg border border-border uppercase font-medium"
                     onClick={addLine}
                   >
                     + Tambah Baris
@@ -231,7 +231,7 @@ export default function PembelianPage() {
                       className="grid grid-cols-12 gap-2 items-end rounded-lg border border-border p-2"
                     >
                       <div className="col-span-12 sm:col-span-5 space-y-1">
-                        <Label className="uppercase text-[10px] font-bold">
+                        <Label className="uppercase text-[10px] font-medium">
                           Bahan
                         </Label>
                         <Select
@@ -252,7 +252,7 @@ export default function PembelianPage() {
                       </div>
 
                       <div className="col-span-4 sm:col-span-2 space-y-1">
-                        <Label className="uppercase text-[10px] font-bold">Qty</Label>
+                        <Label className="uppercase text-[10px] font-medium">Qty</Label>
                         <Input
                           type="number"
                           min={0}
@@ -264,7 +264,7 @@ export default function PembelianPage() {
                       </div>
 
                       <div className="col-span-5 sm:col-span-3 space-y-1">
-                        <Label className="uppercase text-[10px] font-bold">
+                        <Label className="uppercase text-[10px] font-medium">
                           Harga/Unit
                         </Label>
                         <Input
@@ -280,7 +280,7 @@ export default function PembelianPage() {
                       </div>
 
                       <div className="col-span-3 sm:col-span-2 flex flex-col items-end justify-end">
-                        <span className="font-mono font-bold text-sm">
+                        <span className="font-mono font-medium text-sm">
                           {formatRupiah(subtotal)}
                         </span>
                         <button
@@ -299,8 +299,8 @@ export default function PembelianPage() {
 
               {/* Live total */}
               <div className="flex justify-between items-center border-t border-border pt-3">
-                <span className="uppercase font-bold tracking-tight">Total Beli</span>
-                <span className="text-2xl font-bold font-mono">
+                <span className="uppercase font-medium tracking-tight">Total Beli</span>
+                <span className="text-2xl font-semibold font-mono">
                   {formatRupiah(formTotal)}
                 </span>
               </div>
@@ -326,11 +326,11 @@ export default function PembelianPage() {
           </TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="uppercase font-bold">No. Pembelian</TableHead>
-              <TableHead className="uppercase font-bold">Tanggal</TableHead>
-              <TableHead className="uppercase font-bold">Pemasok</TableHead>
-              <TableHead className="uppercase font-bold text-center">Item</TableHead>
-              <TableHead className="uppercase font-bold text-right">Total Beli</TableHead>
+              <TableHead className="uppercase font-medium">No. Pembelian</TableHead>
+              <TableHead className="uppercase font-medium">Tanggal</TableHead>
+              <TableHead className="uppercase font-medium">Pemasok</TableHead>
+              <TableHead className="uppercase font-medium text-center">Item</TableHead>
+              <TableHead className="uppercase font-medium text-right">Total Beli</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -354,15 +354,15 @@ export default function PembelianPage() {
             ) : (
               rows.map((p) => (
                 <TableRow key={p.id_pembelian}>
-                  <TableCell className="font-mono font-bold">
+                  <TableCell className="font-mono font-medium">
                     {p.nomor_pembelian}
                   </TableCell>
                   <TableCell>{formatDate(p.tanggal_beli)}</TableCell>
                   <TableCell className="uppercase">{p.pemasok}</TableCell>
-                  <TableCell className="text-center font-bold">
+                  <TableCell className="text-center font-medium">
                     {p.jumlah_item}
                   </TableCell>
-                  <TableCell className="text-right font-mono font-bold">
+                  <TableCell className="text-right font-mono font-medium">
                     {formatRupiah(p.total_beli)}
                   </TableCell>
                 </TableRow>

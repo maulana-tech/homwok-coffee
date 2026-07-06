@@ -85,7 +85,7 @@ export function CheckoutModal({
             <div className="space-y-2 max-h-64 overflow-auto pr-1">
               {items.map((i) => (
                 <div key={i.id_menu} className="flex justify-between text-sm">
-                  <span className="uppercase font-bold">
+                  <span className="uppercase font-medium">
                     {i.qty}× {i.nama_menu}
                   </span>
                   <span>{formatRupiah(i.subtotal)}</span>
@@ -96,8 +96,8 @@ export function CheckoutModal({
             <Separator />
 
             <div className="flex justify-between items-center">
-              <span className="uppercase font-bold">Total</span>
-              <span className="text-2xl font-bold">{formatRupiah(total)}</span>
+              <span className="uppercase font-medium">Total</span>
+              <span className="text-2xl font-semibold">{formatRupiah(total)}</span>
             </div>
 
             <POSButton

@@ -29,9 +29,9 @@ export function Cart({
       <div className="p-4 border-b border-border flex items-center justify-between shrink-0">
         <div className="flex items-center gap-2">
           <ShoppingCart className="w-5 h-5" />
-          <h2 className="font-bold uppercase tracking-tight">Keranjang</h2>
+          <h2 className="font-medium uppercase tracking-tight">Keranjang</h2>
         </div>
-        <span className="text-sm font-bold">{itemCount} item</span>
+        <span className="text-sm font-medium">{itemCount} item</span>
       </div>
 
       <ScrollArea className="flex-1">
@@ -59,8 +59,8 @@ export function Cart({
 
       <div className="border-t border-border p-4 space-y-3 shrink-0">
         <div className="flex justify-between items-center">
-          <span className="uppercase font-bold tracking-tight">Total</span>
-          <span className="text-2xl font-bold">{formatRupiah(total)}</span>
+          <span className="uppercase font-medium tracking-tight">Total</span>
+          <span className="text-2xl font-semibold">{formatRupiah(total)}</span>
         </div>
         <POSButton
           variant="accent"

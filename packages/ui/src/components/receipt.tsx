@@ -22,7 +22,7 @@ const Receipt = React.forwardRef<HTMLDivElement, ReceiptProps>(
       )}
     >
       <div className="text-center mb-6 border-b border-border pb-4">
-        <h2 className="text-xl font-bold uppercase tracking-tighter mb-1">
+        <h2 className="text-xl font-semibold uppercase tracking-tighter mb-1">
           {storeName}
         </h2>
         <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -33,7 +33,7 @@ const Receipt = React.forwardRef<HTMLDivElement, ReceiptProps>(
       <div className="space-y-1 mb-4 text-[10px] uppercase">
         <div className="flex justify-between">
           <span>No</span>
-          <span className="font-bold">{receiptNumber}</span>
+          <span className="font-medium">{receiptNumber}</span>
         </div>
         <div className="flex justify-between">
           <span>Tgl</span>
@@ -50,7 +50,7 @@ const Receipt = React.forwardRef<HTMLDivElement, ReceiptProps>(
       <div className="space-y-2 mb-4">
         {items.map((item, idx) => (
           <div key={idx}>
-            <div className="flex justify-between font-bold uppercase">
+            <div className="flex justify-between font-medium uppercase">
               <span>{item.name}</span>
               <span>Rp {item.subtotal.toLocaleString("id-ID")}</span>
             </div>
@@ -63,7 +63,7 @@ const Receipt = React.forwardRef<HTMLDivElement, ReceiptProps>(
 
       <div className="border-t border-dashed border-border my-4" />
 
-      <div className="flex justify-between text-lg font-bold uppercase mb-4">
+      <div className="flex justify-between text-lg font-semibold uppercase mb-4">
         <span>Total</span>
         <span>Rp {total.toLocaleString("id-ID")}</span>
       </div>

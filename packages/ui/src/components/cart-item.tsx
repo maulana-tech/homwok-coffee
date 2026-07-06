@@ -45,7 +45,7 @@ const CartItem = React.forwardRef<HTMLDivElement, CartItemProps>(
         >
           <Minus className="h-4 w-4" />
         </Button>
-        <span className="w-8 text-center font-bold">{quantity}</span>
+        <span className="w-8 text-center font-medium">{quantity}</span>
         <Button
           variant="outline"
           size="icon"
@@ -57,14 +57,14 @@ const CartItem = React.forwardRef<HTMLDivElement, CartItemProps>(
       </div>
 
       <div className="flex-1 min-w-0">
-        <h4 className="font-bold uppercase truncate">{name}</h4>
+        <h4 className="font-medium uppercase truncate">{name}</h4>
         <p className="text-sm text-muted-foreground">
           @ Rp {price.toLocaleString("id-ID")}
         </p>
       </div>
 
       <div className="text-right">
-        <p className="font-bold">Rp {subtotal.toLocaleString("id-ID")}</p>
+        <p className="font-medium">Rp {subtotal.toLocaleString("id-ID")}</p>
         <button
           onClick={onRemove}
           className="text-destructive hover:text-destructive/80 text-xs flex items-center gap-1 mt-1"

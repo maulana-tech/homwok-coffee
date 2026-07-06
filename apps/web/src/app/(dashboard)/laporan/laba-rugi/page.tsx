@@ -66,7 +66,7 @@ export default function LaporanLabaRugiPage() {
           <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
             Laporan
           </p>
-          <h1 className="text-2xl font-bold uppercase tracking-tight">Laba Rugi</h1>
+          <h1 className="text-2xl font-semibold uppercase tracking-tight">Laba Rugi</h1>
         </div>
         <div className="flex gap-2">
           <POSButton variant="outline" onClick={() => handleExport("excel")}>
@@ -81,7 +81,7 @@ export default function LaporanLabaRugiPage() {
       {/* Optional period filter */}
       <div className="flex flex-wrap items-end gap-3 rounded-lg border border-border bg-background p-4 shadow-md">
         <div className="space-y-1">
-          <Label htmlFor="from" className="uppercase text-xs font-bold">
+          <Label htmlFor="from" className="uppercase text-xs font-medium">
             Dari
           </Label>
           <Input
@@ -93,7 +93,7 @@ export default function LaporanLabaRugiPage() {
           />
         </div>
         <div className="space-y-1">
-          <Label htmlFor="to" className="uppercase text-xs font-bold">
+          <Label htmlFor="to" className="uppercase text-xs font-medium">
             Sampai
           </Label>
           <Input
@@ -113,12 +113,12 @@ export default function LaporanLabaRugiPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="rounded-lg border border-border shadow-md">
           <CardHeader className="pb-2">
-            <CardDescription className="uppercase text-xs font-bold tracking-widest">
+            <CardDescription className="uppercase text-xs font-medium tracking-widest">
               Pendapatan
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold font-mono">
+            <p className="text-2xl font-semibold font-mono">
               {formatRupiah(laba.pendapatan)}
             </p>
           </CardContent>
@@ -126,23 +126,23 @@ export default function LaporanLabaRugiPage() {
 
         <Card className="rounded-lg border border-border shadow-md">
           <CardHeader className="pb-2">
-            <CardDescription className="uppercase text-xs font-bold tracking-widest">
+            <CardDescription className="uppercase text-xs font-medium tracking-widest">
               HPP
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold font-mono">{formatRupiah(laba.hpp)}</p>
+            <p className="text-2xl font-semibold font-mono">{formatRupiah(laba.hpp)}</p>
           </CardContent>
         </Card>
 
         <Card className="rounded-lg border border-border bg-primary text-primary-foreground shadow-md">
           <CardHeader className="pb-2">
-            <CardDescription className="uppercase text-xs font-bold tracking-widest text-primary-foreground/80">
+            <CardDescription className="uppercase text-xs font-medium tracking-widest text-primary-foreground/80">
               Laba Kotor
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold font-mono">
+            <p className="text-2xl font-semibold font-mono">
               {formatRupiah(laba.labaKotor)}
             </p>
           </CardContent>
@@ -150,12 +150,12 @@ export default function LaporanLabaRugiPage() {
 
         <Card className="rounded-lg border border-border shadow-md">
           <CardHeader className="pb-2">
-            <CardDescription className="uppercase text-xs font-bold tracking-widest">
+            <CardDescription className="uppercase text-xs font-medium tracking-widest">
               Margin
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold font-mono">{formatPct(laba.margin)}</p>
+            <p className="text-3xl font-semibold font-mono">{formatPct(laba.margin)}</p>
           </CardContent>
         </Card>
       </div>
@@ -165,28 +165,28 @@ export default function LaporanLabaRugiPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="uppercase font-bold">Komponen</TableHead>
-              <TableHead className="uppercase font-bold text-right">Jumlah</TableHead>
+              <TableHead className="uppercase font-medium">Komponen</TableHead>
+              <TableHead className="uppercase font-medium text-right">Jumlah</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell className="font-bold uppercase">Pendapatan</TableCell>
-              <TableCell className="text-right font-mono font-bold">
+              <TableCell className="font-medium uppercase">Pendapatan</TableCell>
+              <TableCell className="text-right font-mono font-medium">
                 {formatRupiah(laba.pendapatan)}
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className="font-bold uppercase">(−) HPP</TableCell>
-              <TableCell className="text-right font-mono font-bold">
+              <TableCell className="font-medium uppercase">(−) HPP</TableCell>
+              <TableCell className="text-right font-mono font-medium">
                 ({formatRupiah(laba.hpp)})
               </TableCell>
             </TableRow>
             <TableRow className="bg-primary hover:bg-primary text-primary-foreground">
-              <TableCell className="font-bold uppercase tracking-tight">
+              <TableCell className="font-medium uppercase tracking-tight">
                 (=) Laba Kotor
               </TableCell>
-              <TableCell className="text-right font-mono font-bold text-lg">
+              <TableCell className="text-right font-mono font-semibold text-lg">
                 {formatRupiah(laba.labaKotor)}
               </TableCell>
             </TableRow>

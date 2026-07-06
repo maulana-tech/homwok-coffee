@@ -139,7 +139,7 @@ export default function MasterPegawaiPage() {
     {
       key: "nama_lengkap",
       header: "Nama Lengkap",
-      className: "font-bold uppercase",
+      className: "font-medium uppercase",
     },
     { key: "username", header: "Username" },
     {
@@ -166,7 +166,7 @@ export default function MasterPegawaiPage() {
     <div className="space-y-6">
       <div className="flex items-end justify-between gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold uppercase tracking-tight">
+          <h1 className="text-2xl font-semibold uppercase tracking-tight">
             Pegawai
           </h1>
           <p className="text-sm text-muted-foreground uppercase tracking-widest">
@@ -210,7 +210,7 @@ export default function MasterPegawaiPage() {
       <Dialog open={formOpen} onOpenChange={setFormOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle className="uppercase font-bold tracking-tight">
+            <DialogTitle className="uppercase font-semibold tracking-tight">
               {editing ? "Edit Pegawai" : "Tambah Pegawai"}
             </DialogTitle>
             <DialogDescription>
@@ -224,7 +224,7 @@ export default function MasterPegawaiPage() {
             <div className="space-y-1.5">
               <Label
                 htmlFor="nama_lengkap"
-                className="uppercase text-xs font-bold"
+                className="uppercase text-xs font-medium"
               >
                 Nama Lengkap
               </Label>
@@ -240,7 +240,7 @@ export default function MasterPegawaiPage() {
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="username" className="uppercase text-xs font-bold">
+              <Label htmlFor="username" className="uppercase text-xs font-medium">
                 Username
               </Label>
               <Input
@@ -255,7 +255,7 @@ export default function MasterPegawaiPage() {
             </div>
 
             <div className="space-y-1.5">
-              <Label className="uppercase text-xs font-bold">Peran</Label>
+              <Label className="uppercase text-xs font-medium">Peran</Label>
               <Select
                 value={form.peran}
                 onValueChange={(v) =>
@@ -276,7 +276,7 @@ export default function MasterPegawaiPage() {
               <div className="space-y-1.5">
                 <Label
                   htmlFor="password"
-                  className="uppercase text-xs font-bold"
+                  className="uppercase text-xs font-medium"
                 >
                   Kata Sandi
                 </Label>
@@ -302,7 +302,7 @@ export default function MasterPegawaiPage() {
                 }
                 className="w-5 h-5 rounded-lg border border-border accent-black"
               />
-              <span className="uppercase text-sm font-bold">Pegawai Aktif</span>
+              <span className="uppercase text-sm font-medium">Pegawai Aktif</span>
             </label>
           </div>
 

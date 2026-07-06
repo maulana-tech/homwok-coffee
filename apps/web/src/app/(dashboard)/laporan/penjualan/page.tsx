@@ -68,7 +68,7 @@ export default function LaporanPenjualanPage() {
           <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
             Laporan
           </p>
-          <h1 className="text-2xl font-bold uppercase tracking-tight">
+          <h1 className="text-2xl font-semibold uppercase tracking-tight">
             Penjualan
           </h1>
         </div>
@@ -85,7 +85,7 @@ export default function LaporanPenjualanPage() {
       {/* Period filter */}
       <div className="flex flex-wrap items-end gap-3 rounded-lg border border-border bg-background p-4 shadow-md">
         <div className="space-y-1">
-          <Label htmlFor="from" className="uppercase text-xs font-bold">
+          <Label htmlFor="from" className="uppercase text-xs font-medium">
             Dari
           </Label>
           <Input
@@ -97,7 +97,7 @@ export default function LaporanPenjualanPage() {
           />
         </div>
         <div className="space-y-1">
-          <Label htmlFor="to" className="uppercase text-xs font-bold">
+          <Label htmlFor="to" className="uppercase text-xs font-medium">
             Sampai
           </Label>
           <Input
@@ -117,23 +117,23 @@ export default function LaporanPenjualanPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="rounded-lg border border-border shadow-md">
           <CardHeader className="pb-2">
-            <CardDescription className="uppercase text-xs font-bold tracking-widest">
+            <CardDescription className="uppercase text-xs font-medium tracking-widest">
               Jumlah Transaksi
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold font-mono">{summary.count}</p>
+            <p className="text-3xl font-semibold font-mono">{summary.count}</p>
           </CardContent>
         </Card>
 
         <Card className="rounded-lg border border-border shadow-md">
           <CardHeader className="pb-2">
-            <CardDescription className="uppercase text-xs font-bold tracking-widest">
+            <CardDescription className="uppercase text-xs font-medium tracking-widest">
               Total Penjualan
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold font-mono">
+            <p className="text-2xl font-semibold font-mono">
               {formatRupiah(summary.totalPenjualan)}
             </p>
           </CardContent>
@@ -141,12 +141,12 @@ export default function LaporanPenjualanPage() {
 
         <Card className="rounded-lg border border-border shadow-md">
           <CardHeader className="pb-2">
-            <CardDescription className="uppercase text-xs font-bold tracking-widest">
+            <CardDescription className="uppercase text-xs font-medium tracking-widest">
               Total HPP
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold font-mono">
+            <p className="text-2xl font-semibold font-mono">
               {formatRupiah(summary.totalHpp)}
             </p>
           </CardContent>
@@ -154,12 +154,12 @@ export default function LaporanPenjualanPage() {
 
         <Card className="rounded-lg border border-border bg-primary text-primary-foreground shadow-md">
           <CardHeader className="pb-2">
-            <CardDescription className="uppercase text-xs font-bold tracking-widest text-primary-foreground/80">
+            <CardDescription className="uppercase text-xs font-medium tracking-widest text-primary-foreground/80">
               Laba Kotor
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold font-mono">
+            <p className="text-2xl font-semibold font-mono">
               {formatRupiah(summary.labaKotor)}
             </p>
           </CardContent>
@@ -177,13 +177,13 @@ export default function LaporanPenjualanPage() {
           </TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="uppercase font-bold">No. Nota</TableHead>
-              <TableHead className="uppercase font-bold">Tanggal</TableHead>
-              <TableHead className="uppercase font-bold text-right">
+              <TableHead className="uppercase font-medium">No. Nota</TableHead>
+              <TableHead className="uppercase font-medium">Tanggal</TableHead>
+              <TableHead className="uppercase font-medium text-right">
                 Grand Total
               </TableHead>
-              <TableHead className="uppercase font-bold text-right">HPP</TableHead>
-              <TableHead className="uppercase font-bold text-right">
+              <TableHead className="uppercase font-medium text-right">HPP</TableHead>
+              <TableHead className="uppercase font-medium text-right">
                 Laba Kotor
               </TableHead>
             </TableRow>
@@ -201,17 +201,17 @@ export default function LaporanPenjualanPage() {
             ) : (
               filtered.map((s) => (
                 <TableRow key={s.id_penjualan}>
-                  <TableCell className="font-mono font-bold">
+                  <TableCell className="font-mono font-medium">
                     {s.nomor_nota}
                   </TableCell>
                   <TableCell>{formatDateTime(s.tanggal_jual)}</TableCell>
-                  <TableCell className="text-right font-mono font-bold">
+                  <TableCell className="text-right font-mono font-medium">
                     {formatRupiah(s.grand_total)}
                   </TableCell>
                   <TableCell className="text-right font-mono">
                     {formatRupiah(s.total_hpp)}
                   </TableCell>
-                  <TableCell className="text-right font-mono font-bold">
+                  <TableCell className="text-right font-mono font-medium">
                     {formatRupiah(s.laba_kotor)}
                   </TableCell>
                 </TableRow>
