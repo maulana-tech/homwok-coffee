@@ -17,12 +17,13 @@ import {
   SelectValue,
   SelectContent,
   SelectItem,
+  cn,
 } from "@homwok/ui";
 import { formatRupiah } from "@homwok/lib";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Search, ImagePlus, ImageOff, X } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, ImagePlus, ImageOff, X, BookOpen } from "lucide-react";
 import { useMenus } from "@/hooks/use-data";
-import type { SampleMenu } from "@/lib/sample-data";
+import type { Menu } from "@homwok/types";
 import { DataTable, type DataTableColumn } from "@/components/master/data-table";
 import { DeleteConfirm } from "@/components/master/delete-confirm";
 
@@ -50,14 +51,15 @@ const MAX_FOTO_MB = 2;
 
 export default function MasterMenuPage() {
   const { data, isLoading } = useMenus();
-  const [rows, setRows] = useState<SampleMenu[]>([]);
+  const [rows, setRows] = useState<Menu[]>([]);
   const [search, setSearch] = useState("");
 
   const [formOpen, setFormOpen] = useState(false);
-  const [editing, setEditing] = useState<SampleMenu | null>(null);
+  const [editing, setEditing] = useState<Menu | null>(null);
   const [form, setForm] = useState<MenuForm>(EMPTY_FORM);
 
-  const [deleteTarget, setDeleteTarget] = useState<SampleMenu | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<Menu | null>(null);
+  const [selectedRecipeMenu, setSelectedRecipeMenu] = useState<Menu | null>(null);
 
   // Seed local state once the query resolves (no backend yet).
   useEffect(() => {
@@ -79,7 +81,7 @@ export default function MasterMenuPage() {
     setFormOpen(true);
   };
 
-  const openEdit = (menu: SampleMenu) => {
+  const openEdit = (menu: Menu) => {
     setEditing(menu);
     setForm({
       nama_menu: menu.nama_menu,
@@ -149,14 +151,13 @@ export default function MasterMenuPage() {
     } else {
       const nextId =
         rows.reduce((max, m) => Math.max(max, m.id_menu), 0) + 1;
-      const created: SampleMenu = {
+      const created: Menu = {
         id_menu: nextId,
         nama_menu: nama,
         kategori: form.kategori,
         harga_jual: harga,
         aktif: form.aktif,
         foto_url: form.foto_url,
-        stockStatus: "available",
       };
       setRows((prev) => [...prev, created]);
       // TODO: const fd = new FormData(); ...; if (form.fotoFile) fd.append("foto", form.fotoFile);
@@ -174,7 +175,7 @@ export default function MasterMenuPage() {
     setDeleteTarget(null);
   };
 
-  const columns: DataTableColumn<SampleMenu>[] = [
+  const columns: DataTableColumn<Menu>[] = [
     {
       key: "foto",
       header: "Foto",
@@ -245,6 +246,15 @@ export default function MasterMenuPage() {
         emptyText={search ? "Menu tidak ditemukan" : "Belum ada menu"}
         actions={(m) => (
           <div className="flex justify-end gap-2">
+            <POSButton
+              size="sm"
+              variant="outline"
+              title="Lihat Resep"
+              aria-label={`Lihat resep ${m.nama_menu}`}
+              onClick={() => setSelectedRecipeMenu(m)}
+            >
+              <BookOpen className="w-3.5 h-3.5 text-primary" />
+            </POSButton>
             <POSButton
               size="sm"
               variant="outline"
@@ -391,6 +401,67 @@ export default function MasterMenuPage() {
             </POSButton>
             <POSButton variant="accent" onClick={handleSave}>
               Simpan
+            </POSButton>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Recipe details dialog */}
+      <Dialog open={selectedRecipeMenu !== null} onOpenChange={(open) => !open && setSelectedRecipeMenu(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="uppercase font-semibold tracking-tight flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-primary" />
+              Resep: {selectedRecipeMenu?.nama_menu}
+            </DialogTitle>
+            <DialogDescription>
+              Komposisi bahan baku yang digunakan untuk membuat 1 porsi menu ini.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="py-4">
+            {selectedRecipeMenu?.resep && selectedRecipeMenu.resep.length > 0 ? (
+              <div className="border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded overflow-hidden">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-primary text-primary-foreground border-b border-black">
+                      <th className="p-3 text-xs font-semibold uppercase tracking-wider">Bahan Baku</th>
+                      <th className="p-3 text-xs font-semibold uppercase tracking-wider text-right">Takaran</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedRecipeMenu.resep.map((r, i) => (
+                      <tr
+                        key={r.id_resep}
+                        className={cn(
+                          "border-b border-black last:border-0",
+                          i % 2 === 0 ? "bg-background" : "bg-muted/40"
+                        )}
+                      >
+                        <td className="p-3 text-sm font-medium uppercase">
+                          {r.bahan_baku?.nama_bahan}
+                        </td>
+                        <td className="p-3 text-sm font-mono text-right">
+                          {r.takaran} {r.satuan}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center p-8 border border-dashed border-border rounded-lg bg-muted/20 text-center">
+                <p className="text-sm font-medium text-muted-foreground uppercase">Belum ada resep</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Menu ini belum memiliki komposisi bahan baku terdaftar.
+                </p>
+              </div>
+            )}
+          </div>
+
+          <DialogFooter>
+            <POSButton variant="outline" onClick={() => setSelectedRecipeMenu(null)}>
+              Tutup
             </POSButton>
           </DialogFooter>
         </DialogContent>
