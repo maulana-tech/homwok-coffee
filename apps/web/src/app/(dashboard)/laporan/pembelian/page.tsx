@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Card,
   CardContent,
@@ -20,6 +20,7 @@ import {
 import { formatDate, formatRupiah } from "@homwok/lib";
 import { samplePembelian } from "@/lib/sample-data";
 import { toast } from "sonner";
+import api from "@/lib/api";
 
 export default function LaporanPembelianPage() {
   const [fromInput, setFromInput] = useState("");
@@ -27,17 +28,31 @@ export default function LaporanPembelianPage() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
 
-  // Filter pembelian atas tanggal_beli (bandingkan bagian tanggal saja).
-  const filtered = useMemo(
-    () =>
-      samplePembelian.filter((p) => {
-        const d = p.tanggal_beli.slice(0, 10);
-        if (from && d < from) return false;
-        if (to && d > to) return false;
-        return true;
-      }),
-    [from, to],
-  );
+  const [filtered, setFiltered] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPembelian = async () => {
+      setLoading(true);
+      try {
+        const res = await api.get("/laporan/pembelian", { params: { from, to } });
+        setFiltered(res.data.data);
+      } catch (err) {
+        console.warn("Gagal mengambil data dari API, menggunakan mock data:", err);
+        setFiltered(
+          samplePembelian.filter((p) => {
+            const d = p.tanggal_beli.slice(0, 10);
+            if (from && d < from) return false;
+            if (to && d > to) return false;
+            return true;
+          })
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPembelian();
+  }, [from, to]);
 
   const summary = useMemo(
     () => ({
@@ -53,9 +68,27 @@ export default function LaporanPembelianPage() {
     setTo(toInput);
   };
 
-  const handleExport = (type: "excel" | "pdf") => {
-    // TODO: api.get('/laporan/pembelian', { params: { from, to, export: type }, responseType: 'blob' })
-    toast.info("Export butuh backend", { description: `Format: ${type.toUpperCase()}` });
+  const handleExport = async (type: "excel" | "pdf") => {
+    try {
+      const response = await api.get("/laporan/pembelian", {
+        params: { from, to, export: type },
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      const ext = type === "pdf" ? "pdf" : "csv";
+      link.setAttribute("download", `laporan-pembelian-${Date.now()}.${ext}`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+
+      toast.success("Laporan berhasil diexport!");
+    } catch (err) {
+      toast.error("Gagal melakukan export laporan");
+    }
   };
 
   return (
