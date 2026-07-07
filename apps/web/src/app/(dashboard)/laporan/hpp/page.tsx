@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Card,
   CardContent,
@@ -18,6 +18,7 @@ import {
 import { formatDate, formatRupiah } from "@homwok/lib";
 import { samplePenjualan } from "@/lib/sample-data";
 import { toast } from "sonner";
+import api from "@/lib/api";
 
 /** margin % = laba_kotor / grand_total. */
 const marginPct = (laba: number, total: number): number =>
@@ -26,20 +27,66 @@ const marginPct = (laba: number, total: number): number =>
 const formatPct = (n: number): string => `${n.toFixed(1)}%`;
 
 export default function LaporanHppPage() {
+  const [rows, setRows] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchHpp = async () => {
+      setLoading(true);
+      try {
+        const res = await api.get("/laporan/hpp");
+        setRows(res.data.data);
+      } catch (err) {
+        console.warn("Gagal mengambil data dari API, menggunakan mock data:", err);
+        setRows(
+          samplePenjualan.map((s) => ({
+            id_penjualan: s.id_penjualan,
+            nomor_nota: s.nomor_nota,
+            tanggal_jual: s.tanggal_jual,
+            grand_total: s.grand_total,
+            total_hpp: s.total_hpp,
+            laba_kotor: s.laba_kotor,
+          }))
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchHpp();
+  }, []);
+
   const summary = useMemo(() => {
-    const totalHpp = samplePenjualan.reduce((s, r) => s + r.total_hpp, 0);
-    const totalPenjualan = samplePenjualan.reduce((s, r) => s + r.grand_total, 0);
-    const totalLaba = samplePenjualan.reduce((s, r) => s + r.laba_kotor, 0);
+    const totalHpp = rows.reduce((s, r) => s + r.total_hpp, 0);
+    const totalPenjualan = rows.reduce((s, r) => s + r.grand_total, 0);
+    const totalLaba = rows.reduce((s, r) => s + (r.laba_kotor ?? (r.grand_total - r.total_hpp)), 0);
     return {
       totalHpp,
       totalPenjualan,
       avgMargin: marginPct(totalLaba, totalPenjualan),
     };
-  }, []);
+  }, [rows]);
 
-  const handleExport = (type: "excel" | "pdf") => {
-    // TODO: api.get('/laporan/hpp', { params: { export: type }, responseType: 'blob' })
-    toast.info("Export butuh backend", { description: `Format: ${type.toUpperCase()}` });
+  const handleExport = async (type: "excel" | "pdf") => {
+    try {
+      const response = await api.get("/laporan/hpp", {
+        params: { export: type },
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      const ext = type === "pdf" ? "pdf" : "csv";
+      link.setAttribute("download", `laporan-hpp-${Date.now()}.${ext}`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+
+      toast.success("Laporan berhasil diexport!");
+    } catch (err) {
+      toast.error("Gagal melakukan export laporan");
+    }
   };
 
   return (
@@ -123,21 +170,32 @@ export default function LaporanHppPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {samplePenjualan.map((s) => (
-              <TableRow key={s.id_penjualan}>
-                <TableCell className="font-mono font-medium">{s.nomor_nota}</TableCell>
-                <TableCell>{formatDate(s.tanggal_jual)}</TableCell>
-                <TableCell className="text-right font-mono font-medium">
-                  {formatRupiah(s.grand_total)}
-                </TableCell>
-                <TableCell className="text-right font-mono">
-                  {formatRupiah(s.total_hpp)}
-                </TableCell>
-                <TableCell className="text-right font-mono font-medium">
-                  {formatPct(marginPct(s.laba_kotor, s.grand_total))}
+            {rows.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  colSpan={5}
+                  className="text-center py-12 uppercase text-sm tracking-widest text-muted-foreground"
+                >
+                  Tidak ada transaksi pada periode ini
                 </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              rows.map((s) => (
+                <TableRow key={s.id_penjualan}>
+                  <TableCell className="font-mono font-medium">{s.nomor_nota}</TableCell>
+                  <TableCell>{formatDate(s.tanggal_jual)}</TableCell>
+                  <TableCell className="text-right font-mono font-medium">
+                    {formatRupiah(s.grand_total)}
+                  </TableCell>
+                  <TableCell className="text-right font-mono">
+                    {formatRupiah(s.total_hpp)}
+                  </TableCell>
+                  <TableCell className="text-right font-mono font-medium">
+                    {formatPct(marginPct(s.laba_kotor, s.grand_total))}
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </div>
