@@ -32,11 +32,12 @@ interface NavItem {
 }
 
 const menuItems: NavItem[] = [
-  { icon: ShoppingCart, label: "Kasir", href: "/kasir", roles: ["barista", "manager"] },
+  { icon: ShoppingCart, label: "Kasir", href: "/kasir", roles: ["barista"] },
   { icon: Coffee, label: "Menu", href: "/master/menu", roles: ["barista", "manager"] },
   { icon: Package, label: "Bahan Baku", href: "/master/bahan", roles: ["barista", "manager"] },
   { icon: Users, label: "Pegawai", href: "/master/pegawai", roles: ["barista", "manager"] },
   { icon: ShoppingBag, label: "Pembelian", href: "/pembelian", roles: ["barista", "manager"] },
+  { icon: ClipboardList, label: "Penjualan", href: "/penjualan", roles: ["barista", "manager"] },
   { icon: TrendingUp, label: "Laporan Penjualan", href: "/laporan/penjualan", roles: ["manager"] },
   { icon: ClipboardList, label: "Laporan Pembelian", href: "/laporan/pembelian", roles: ["manager"] },
   { icon: FileText, label: "Laporan HPP", href: "/laporan/hpp", roles: ["manager"] },
