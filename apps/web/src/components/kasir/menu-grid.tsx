@@ -48,8 +48,8 @@ export function MenuGrid({ onSelect }: { onSelect: (menu: Menu) => void }) {
               price={menu.harga_jual}
               category={menu.kategori}
               imageUrl={menu.foto_url}
-              stockStatus={menu.stockStatus}
-              onClick={() => menu.stockStatus !== "out" && onSelect(menu)}
+              stockStatus={(menu as any).stockStatus ?? "available"}
+              onClick={() => ((menu as any).stockStatus ?? "available") !== "out" && onSelect(menu)}
             />
           ))}
         </div>
