@@ -9,9 +9,10 @@ import {
   type ReactNode,
 } from "react";
 import { useRouter } from "next/navigation";
-import type { LoginCredentials, Pegawai } from "@homwok/types";
+import type { LoginCredentials, Pegawai, AuthResponse } from "@homwok/types";
 import { SAMPLE_USERS } from "@/lib/sample-data";
 import { toast } from "sonner";
+import api from "@/lib/api";
 
 const TOKEN_KEY = "homwok_token";
 const USER_KEY = "homwok_user";
@@ -20,6 +21,7 @@ interface AuthContextType {
   user: Pegawai | null;
   login: (credentials: LoginCredentials) => Promise<void>;
   logout: () => void;
+  setIsLoading?: (loading: boolean) => void; // optional in type if needed, but not in current interface
   isLoading: boolean;
   isAuthenticated: boolean;
 }
@@ -48,25 +50,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     async (credentials: LoginCredentials) => {
       setIsLoading(true);
       try {
-        // TODO: swap for `await api.post<AuthResponse>('/login', credentials)`
-        // once the Laravel backend exposes /login. For now we authenticate
-        // against the seeded sample users so the UI is fully demoable offline.
-        const match = SAMPLE_USERS.find(
-          (u) =>
-            u.username === credentials.username &&
-            u.password === credentials.password,
-        );
-        if (!match) throw new Error("Username atau password salah");
+        // Coba autentikasi ke backend Laravel riil untuk mendapatkan token Sanctum asli
+        const response = await api.post<AuthResponse>("/login", credentials);
+        const { token, user: pegawai } = response.data;
 
-        const { password: _password, ...pegawai } = match;
-        localStorage.setItem(TOKEN_KEY, `sample-${match.username}`);
+        localStorage.setItem(TOKEN_KEY, token);
         localStorage.setItem(USER_KEY, JSON.stringify(pegawai));
         setUser(pegawai);
         toast.success(`Selamat datang, ${pegawai.nama_lengkap}`);
         router.push(pegawai.peran === "manager" ? "/laporan/penjualan" : "/kasir");
       } catch (error) {
-        toast.error(error instanceof Error ? error.message : "Gagal login");
-        throw error;
+        console.warn("Koneksi API gagal, menggunakan data mock lokal:", error);
+        
+        // Fallback ke sample user
+        const match = SAMPLE_USERS.find(
+          (u) =>
+            u.username === credentials.username &&
+            u.password === credentials.password,
+        );
+        if (!match) {
+          toast.error("Username atau password salah");
+          throw new Error("Username atau password salah");
+        }
+
+        const { password: _password, ...pegawai } = match;
+        localStorage.setItem(TOKEN_KEY, `sample-${match.username}`);
+        localStorage.setItem(USER_KEY, JSON.stringify(pegawai));
+        setUser(pegawai);
+        toast.success(`Selamat datang, ${pegawai.nama_lengkap} (Mode Demo)`);
+        router.push(pegawai.peran === "manager" ? "/laporan/penjualan" : "/kasir");
       } finally {
         setIsLoading(false);
       }
