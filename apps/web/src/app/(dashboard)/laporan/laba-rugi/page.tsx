@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Card,
   CardContent,
@@ -19,6 +19,7 @@ import {
 import { formatRupiah } from "@homwok/lib";
 import { samplePenjualan } from "@/lib/sample-data";
 import { toast } from "sonner";
+import api from "@/lib/api";
 
 const formatPct = (n: number): string => `${n.toFixed(1)}%`;
 
@@ -29,33 +30,67 @@ export default function LaporanLabaRugiPage() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
 
-  const filtered = useMemo(
-    () =>
-      samplePenjualan.filter((s) => {
-        const d = s.tanggal_jual.slice(0, 10);
-        if (from && d < from) return false;
-        if (to && d > to) return false;
-        return true;
-      }),
-    [from, to],
-  );
+  const [laba, setLaba] = useState({ pendapatan: 0, hpp: 0, labaKotor: 0, margin: 0 });
+  const [loading, setLoading] = useState(true);
 
-  const laba = useMemo(() => {
-    const pendapatan = filtered.reduce((s, r) => s + r.grand_total, 0);
-    const hpp = filtered.reduce((s, r) => s + r.total_hpp, 0);
-    const labaKotor = filtered.reduce((s, r) => s + r.laba_kotor, 0);
-    const margin = pendapatan > 0 ? (labaKotor / pendapatan) * 100 : 0;
-    return { pendapatan, hpp, labaKotor, margin };
-  }, [filtered]);
+  useEffect(() => {
+    const fetchLabaRugi = async () => {
+      setLoading(true);
+      try {
+        const res = await api.get("/laporan/laba-rugi", { params: { from, to } });
+        setLaba({
+          pendapatan: Number(res.data.pendapatan),
+          hpp: Number(res.data.hpp),
+          labaKotor: Number(res.data.laba_kotor),
+          margin: Number(res.data.margin),
+        });
+      } catch (err) {
+        console.warn("Gagal mengambil data dari API, menggunakan mock data:", err);
+        // Fallback
+        const filtered = samplePenjualan.filter((s) => {
+          const d = s.tanggal_jual.slice(0, 10);
+          if (from && d < from) return false;
+          if (to && d > to) return false;
+          return true;
+        });
+        const pendapatan = filtered.reduce((s, r) => s + r.grand_total, 0);
+        const hpp = filtered.reduce((s, r) => s + r.total_hpp, 0);
+        const labaKotor = filtered.reduce((s, r) => s + r.laba_kotor, 0);
+        const margin = pendapatan > 0 ? (labaKotor / pendapatan) * 100 : 0;
+        setLaba({ pendapatan, hpp, labaKotor, margin });
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchLabaRugi();
+  }, [from, to]);
 
   const applyFilter = () => {
     setFrom(fromInput);
     setTo(toInput);
   };
 
-  const handleExport = (type: "excel" | "pdf") => {
-    // TODO: api.get('/laporan/laba-rugi', { params: { from, to, export: type }, responseType: 'blob' })
-    toast.info("Export butuh backend", { description: `Format: ${type.toUpperCase()}` });
+  const handleExport = async (type: "excel" | "pdf") => {
+    try {
+      const response = await api.get("/laporan/laba-rugi", {
+        params: { from, to, export: type },
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      const ext = type === "pdf" ? "pdf" : "csv";
+      link.setAttribute("download", `laporan-laba-rugi-${Date.now()}.${ext}`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+
+      toast.success("Laporan berhasil diexport!");
+    } catch (err) {
+      toast.error("Gagal melakukan export laporan");
+    }
   };
 
   return (
