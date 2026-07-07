@@ -53,18 +53,149 @@ const fotoDemo = (seed: string) =>
   `https://picsum.photos/seed/${seed}/400/300`;
 
 export const sampleMenus: SampleMenu[] = [
-  { id_menu: 1, nama_menu: "Espresso Solo", kategori: "Coffee", harga_jual: 15000, aktif: true, stockStatus: "available", foto_url: fotoDemo("espresso") },
-  { id_menu: 2, nama_menu: "Caffe Latte", kategori: "Coffee", harga_jual: 25000, aktif: true, stockStatus: "available", foto_url: fotoDemo("latte") },
-  { id_menu: 3, nama_menu: "Kopi Susu Aren", kategori: "Coffee", harga_jual: 22000, aktif: true, stockStatus: "low", foto_url: fotoDemo("kopisusu") },
-  { id_menu: 4, nama_menu: "Cappuccino", kategori: "Coffee", harga_jual: 24000, aktif: true, stockStatus: "available", foto_url: fotoDemo("cappuccino") },
-  { id_menu: 5, nama_menu: "Americano", kategori: "Coffee", harga_jual: 20000, aktif: true, stockStatus: "available" },
-  { id_menu: 6, nama_menu: "Matcha Latte", kategori: "Non-Coffee", harga_jual: 28000, aktif: true, stockStatus: "available", foto_url: fotoDemo("matcha") },
-  { id_menu: 7, nama_menu: "Chocolate", kategori: "Non-Coffee", harga_jual: 26000, aktif: true, stockStatus: "available", foto_url: fotoDemo("chocolate") },
-  { id_menu: 8, nama_menu: "Lemon Tea", kategori: "Non-Coffee", harga_jual: 18000, aktif: true, stockStatus: "out", foto_url: fotoDemo("lemontea") },
-  { id_menu: 9, nama_menu: "Croissant", kategori: "Snack", harga_jual: 20000, aktif: true, stockStatus: "available", foto_url: fotoDemo("croissant") },
-  { id_menu: 10, nama_menu: "Butter Toast", kategori: "Snack", harga_jual: 17000, aktif: true, stockStatus: "low" },
-  { id_menu: 11, nama_menu: "French Fries", kategori: "Snack", harga_jual: 22000, aktif: true, stockStatus: "available", foto_url: fotoDemo("fries") },
-  { id_menu: 12, nama_menu: "Affogato", kategori: "Coffee", harga_jual: 30000, aktif: false, stockStatus: "available", foto_url: fotoDemo("affogato") },
+  {
+    id_menu: 1,
+    nama_menu: "Espresso Solo",
+    kategori: "Coffee",
+    harga_jual: 15000,
+    aktif: true,
+    stockStatus: "available",
+    foto_url: fotoDemo("espresso"),
+    resep: [
+      { id_resep: 1, id_menu: 1, id_bahan: 1, takaran: 18, satuan: "gram", bahan_baku: { id_bahan: 1, nama_bahan: "Biji Kopi Arabika", satuan: "gram", stok_minimum: 1000 } },
+      { id_resep: 2, id_menu: 1, id_bahan: 4, takaran: 1, satuan: "pcs", bahan_baku: { id_bahan: 4, nama_bahan: "Paper Cup 12oz", satuan: "pcs", stok_minimum: 100 } }
+    ]
+  },
+  {
+    id_menu: 2,
+    nama_menu: "Caffe Latte",
+    kategori: "Coffee",
+    harga_jual: 25000,
+    aktif: true,
+    stockStatus: "available",
+    foto_url: fotoDemo("latte"),
+    resep: [
+      { id_resep: 3, id_menu: 2, id_bahan: 1, takaran: 18, satuan: "gram", bahan_baku: { id_bahan: 1, nama_bahan: "Biji Kopi Arabika", satuan: "gram", stok_minimum: 1000 } },
+      { id_resep: 4, id_menu: 2, id_bahan: 2, takaran: 150, satuan: "ml", bahan_baku: { id_bahan: 2, nama_bahan: "Susu Segar (Fresh Milk)", satuan: "ml", stok_minimum: 2000 } },
+      { id_resep: 5, id_menu: 2, id_bahan: 4, takaran: 1, satuan: "pcs", bahan_baku: { id_bahan: 4, nama_bahan: "Paper Cup 12oz", satuan: "pcs", stok_minimum: 100 } }
+    ]
+  },
+  {
+    id_menu: 3,
+    nama_menu: "Kopi Susu Aren",
+    kategori: "Coffee",
+    harga_jual: 22000,
+    aktif: true,
+    stockStatus: "low",
+    foto_url: fotoDemo("kopisusu"),
+    resep: [
+      { id_resep: 6, id_menu: 3, id_bahan: 1, takaran: 18, satuan: "gram", bahan_baku: { id_bahan: 1, nama_bahan: "Biji Kopi Arabika", satuan: "gram", stok_minimum: 1000 } },
+      { id_resep: 7, id_menu: 3, id_bahan: 2, takaran: 120, satuan: "ml", bahan_baku: { id_bahan: 2, nama_bahan: "Susu Segar (Fresh Milk)", satuan: "ml", stok_minimum: 2000 } },
+      { id_resep: 8, id_menu: 3, id_bahan: 3, takaran: 20, satuan: "ml", bahan_baku: { id_bahan: 3, nama_bahan: "Sirup Gula Aren", satuan: "ml", stok_minimum: 500 } },
+      { id_resep: 9, id_menu: 3, id_bahan: 4, takaran: 1, satuan: "pcs", bahan_baku: { id_bahan: 4, nama_bahan: "Paper Cup 12oz", satuan: "pcs", stok_minimum: 100 } }
+    ]
+  },
+  {
+    id_menu: 4,
+    nama_menu: "Cappuccino",
+    kategori: "Coffee",
+    harga_jual: 24000,
+    aktif: true,
+    stockStatus: "available",
+    foto_url: fotoDemo("cappuccino"),
+    resep: [
+      { id_resep: 10, id_menu: 4, id_bahan: 1, takaran: 18, satuan: "gram", bahan_baku: { id_bahan: 1, nama_bahan: "Biji Kopi Arabika", satuan: "gram", stok_minimum: 1000 } },
+      { id_resep: 11, id_menu: 4, id_bahan: 2, takaran: 150, satuan: "ml", bahan_baku: { id_bahan: 2, nama_bahan: "Susu Segar (Fresh Milk)", satuan: "ml", stok_minimum: 2000 } },
+      { id_resep: 12, id_menu: 4, id_bahan: 4, takaran: 1, satuan: "pcs", bahan_baku: { id_bahan: 4, nama_bahan: "Paper Cup 12oz", satuan: "pcs", stok_minimum: 100 } }
+    ]
+  },
+  {
+    id_menu: 5,
+    nama_menu: "Americano",
+    kategori: "Coffee",
+    harga_jual: 20000,
+    aktif: true,
+    stockStatus: "available",
+    resep: [
+      { id_resep: 13, id_menu: 5, id_bahan: 1, takaran: 18, satuan: "gram", bahan_baku: { id_bahan: 1, nama_bahan: "Biji Kopi Arabika", satuan: "gram", stok_minimum: 1000 } },
+      { id_resep: 14, id_menu: 5, id_bahan: 4, takaran: 1, satuan: "pcs", bahan_baku: { id_bahan: 4, nama_bahan: "Paper Cup 12oz", satuan: "pcs", stok_minimum: 100 } }
+    ]
+  },
+  {
+    id_menu: 6,
+    nama_menu: "Matcha Latte",
+    kategori: "Non-Coffee",
+    harga_jual: 28000,
+    aktif: true,
+    stockStatus: "available",
+    foto_url: fotoDemo("matcha"),
+    resep: [
+      { id_resep: 15, id_menu: 6, id_bahan: 5, takaran: 15, satuan: "gram", bahan_baku: { id_bahan: 5, nama_bahan: "Bubuk Matcha", satuan: "gram", stok_minimum: 300 } },
+      { id_resep: 16, id_menu: 6, id_bahan: 2, takaran: 150, satuan: "ml", bahan_baku: { id_bahan: 2, nama_bahan: "Susu Segar (Fresh Milk)", satuan: "ml", stok_minimum: 2000 } },
+      { id_resep: 17, id_menu: 6, id_bahan: 4, takaran: 1, satuan: "pcs", bahan_baku: { id_bahan: 4, nama_bahan: "Paper Cup 12oz", satuan: "pcs", stok_minimum: 100 } }
+    ]
+  },
+  {
+    id_menu: 7,
+    nama_menu: "Chocolate",
+    kategori: "Non-Coffee",
+    harga_jual: 26000,
+    aktif: true,
+    stockStatus: "available",
+    foto_url: fotoDemo("chocolate"),
+    resep: [
+      { id_resep: 18, id_menu: 7, id_bahan: 6, takaran: 20, satuan: "gram", bahan_baku: { id_bahan: 6, nama_bahan: "Cokelat Bubuk", satuan: "gram", stok_minimum: 400 } },
+      { id_resep: 19, id_menu: 7, id_bahan: 2, takaran: 150, satuan: "ml", bahan_baku: { id_bahan: 2, nama_bahan: "Susu Segar (Fresh Milk)", satuan: "ml", stok_minimum: 2000 } },
+      { id_resep: 20, id_menu: 7, id_bahan: 4, takaran: 1, satuan: "pcs", bahan_baku: { id_bahan: 4, nama_bahan: "Paper Cup 12oz", satuan: "pcs", stok_minimum: 100 } }
+    ]
+  },
+  {
+    id_menu: 8,
+    nama_menu: "Lemon Tea",
+    kategori: "Non-Coffee",
+    harga_jual: 18000,
+    aktif: true,
+    stockStatus: "out",
+    foto_url: fotoDemo("lemontea")
+  },
+  {
+    id_menu: 9,
+    nama_menu: "Croissant",
+    kategori: "Snack",
+    harga_jual: 20000,
+    aktif: true,
+    stockStatus: "available",
+    foto_url: fotoDemo("croissant")
+  },
+  {
+    id_menu: 10,
+    nama_menu: "Butter Toast",
+    kategori: "Snack",
+    harga_jual: 17000,
+    aktif: true,
+    stockStatus: "low"
+  },
+  {
+    id_menu: 11,
+    nama_menu: "French Fries",
+    kategori: "Snack",
+    harga_jual: 22000,
+    aktif: true,
+    stockStatus: "available",
+    foto_url: fotoDemo("fries")
+  },
+  {
+    id_menu: 12,
+    nama_menu: "Affogato",
+    kategori: "Coffee",
+    harga_jual: 30000,
+    aktif: false,
+    stockStatus: "available",
+    foto_url: fotoDemo("affogato"),
+    resep: [
+      { id_resep: 21, id_menu: 12, id_bahan: 1, takaran: 18, satuan: "gram", bahan_baku: { id_bahan: 1, nama_bahan: "Biji Kopi Arabika", satuan: "gram", stok_minimum: 1000 } }
+    ]
+  },
 ];
 
 export interface SampleBahan extends BahanBaku {
