@@ -2,58 +2,119 @@
 
 import { useQuery } from "@tanstack/react-query";
 import {
-  fakeFetch,
   sampleBahan,
   sampleKartuPergerakan,
   sampleMenus,
   samplePegawai,
   samplePembelian,
   samplePenjualan,
+  type SampleBahan,
+  type SamplePembelian,
 } from "@/lib/sample-data";
+import api from "@/lib/api";
+import type { Menu, BahanBaku, Pegawai, Pembelian, Penjualan, KartuPersediaanRow } from "@homwok/types";
 
 /**
- * Read queries. Each currently resolves sample data through `fakeFetch` so the
- * async/loading shape matches the eventual real API. To go live, replace each
- * queryFn body with `(await api.get('/<resource>')).data`.
+ * Read queries. Connected to the real backend Laravel API.
+ * Automatically falls back to mock data if the API connection fails.
  */
 
 export function useMenus() {
-  return useQuery({ queryKey: ["menus"], queryFn: () => fakeFetch(sampleMenus) });
+  return useQuery<Menu[]>({
+    queryKey: ["menus"],
+    queryFn: async () => {
+      try {
+        const res = await api.get("/menu");
+        return res.data;
+      } catch (err) {
+        console.warn("Gagal fetch /menu, menggunakan mock data:", err);
+        return sampleMenus;
+      }
+    },
+  });
 }
 
 export function useBahan() {
-  return useQuery({ queryKey: ["bahan"], queryFn: () => fakeFetch(sampleBahan) });
+  return useQuery<SampleBahan[]>({
+    queryKey: ["bahan"],
+    queryFn: async () => {
+      try {
+        const res = await api.get("/persediaan");
+        return res.data;
+      } catch (err) {
+        console.warn("Gagal fetch /persediaan, menggunakan mock data:", err);
+        return sampleBahan;
+      }
+    },
+  });
 }
 
 export function usePegawai() {
-  return useQuery({
+  return useQuery<Pegawai[]>({
     queryKey: ["pegawai"],
-    queryFn: () => fakeFetch(samplePegawai),
+    queryFn: async () => {
+      try {
+        const res = await api.get("/pegawai");
+        return res.data;
+      } catch (err) {
+        console.warn("Gagal fetch /pegawai, menggunakan mock data:", err);
+        return samplePegawai;
+      }
+    },
   });
 }
 
 export function usePembelian() {
-  return useQuery({
+  return useQuery<SamplePembelian[]>({
     queryKey: ["pembelian"],
-    queryFn: () => fakeFetch(samplePembelian),
+    queryFn: async () => {
+      try {
+        const res = await api.get("/pembelian");
+        return res.data;
+      } catch (err) {
+        console.warn("Gagal fetch /pembelian, menggunakan mock data:", err);
+        return samplePembelian;
+      }
+    },
   });
 }
 
 export function usePenjualan() {
-  return useQuery({
+  return useQuery<Penjualan[]>({
     queryKey: ["penjualan"],
-    queryFn: () => fakeFetch(samplePenjualan),
+    queryFn: async () => {
+      try {
+        const res = await api.get("/penjualan");
+        return res.data;
+      } catch (err) {
+        console.warn("Gagal fetch /penjualan, menggunakan mock data:", err);
+        return samplePenjualan;
+      }
+    },
   });
 }
 
 /**
  * Pergerakan kartu persediaan FIFO untuk satu bahan.
- * TODO: `(await api.get('/laporan/kartu-persediaan', { params: { id_bahan } })).data.data`.
  */
 export function useKartuPersediaan(idBahan: number | null) {
-  return useQuery({
+  return useQuery<KartuPersediaanRow[]>({
     queryKey: ["kartu-persediaan", idBahan],
-    queryFn: () => fakeFetch(idBahan ? (sampleKartuPergerakan[idBahan] ?? []) : []),
+    queryFn: async () => {
+      if (!idBahan) return [];
+      try {
+        const res = await api.get("/laporan/kartu-persediaan", {
+          params: { id_bahan: idBahan },
+        });
+        return res.data.data;
+      } catch (err) {
+        console.warn(
+          "Gagal fetch /laporan/kartu-persediaan, menggunakan mock data:",
+          err,
+        );
+        return sampleKartuPergerakan[idBahan] ?? [];
+      }
+    },
     enabled: idBahan !== null,
   });
 }
