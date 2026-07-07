@@ -27,6 +27,7 @@ import { formatDate, formatRupiah } from "@homwok/lib";
 import type { KartuPersediaanRow } from "@homwok/types";
 import { useBahan, useKartuPersediaan } from "@/hooks/use-data";
 import { toast } from "sonner";
+import api from "@/lib/api";
 
 const num = (n: number) => n.toLocaleString("id-ID");
 
@@ -91,9 +92,32 @@ export default function KartuPersediaanPage() {
     setTo(toInput);
   };
 
-  const handleExport = (type: "excel" | "pdf") => {
-    // TODO: api.get('/laporan/kartu-persediaan', { params: { id_bahan, from, to, export: type }, responseType: 'blob' })
-    toast.info("Export butuh backend", { description: `Format: ${type.toUpperCase()}` });
+  const handleExport = async (type: "excel" | "pdf") => {
+    if (!idBahan) {
+      toast.error("Pilih bahan baku terlebih dahulu");
+      return;
+    }
+
+    try {
+      const response = await api.get("/laporan/kartu-persediaan", {
+        params: { id_bahan: idBahan, from, to, export: type },
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      const ext = type === "pdf" ? "pdf" : "csv";
+      link.setAttribute("download", `laporan-kartu-persediaan-${Date.now()}.${ext}`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+
+      toast.success("Laporan berhasil diexport!");
+    } catch (err) {
+      toast.error("Gagal melakukan export laporan");
+    }
   };
 
   return (
