@@ -15,6 +15,10 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        // 0. Katalog menu asli Homwok (master data lengkap dari papan menu).
+        //    Terpisah dari demo FIFO di bawah agar mudah dirawat.
+        $this->call(MenuSeeder::class);
+
         // 1. Create Pegawai
         $barista = Pegawai::create([
             'nama_lengkap' => 'Barista Satu',
@@ -274,5 +278,10 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
+
+        // 7. Bahan baku lengkap + stok awal, lalu resep semua menu asli.
+        //    Dijalankan paling akhir agar pegawai & bahan demo sudah tersedia.
+        $this->call(BahanBakuSeeder::class);
+        $this->call(ResepSeeder::class);
     }
 }

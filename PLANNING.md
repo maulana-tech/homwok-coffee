@@ -49,11 +49,16 @@ homwok-coffee/
 - Wiring: `bootstrap/app.php` (api routing + alias `role`), `routes/api.php`, `RoleMiddleware`, `config/cors.php`, `.env` (sqlite).
 - Model: `$casts` + relasi `BahanBaku`, scope `tersedia()`.
 - Test: `tests/Feature/FifoCalculatorTest.php` (6.000 g → HPP Rp 735.000).
+- **Seeder data asli Homwok** (dipanggil dari `DatabaseSeeder`, berdampingan dengan demo FIFO):
+  - `MenuSeeder` — katalog menu papan (89 baris; ukuran R/L dipecah 2 baris, harga papan × 1.000).
+  - `BahanBakuSeeder` — 59 bahan baku (kopi, susu, sirup, bubuk, buah, snack, saus, kemasan) + **stok awal** (satu pembelian "Stok Awal" per bahan) agar FIFO punya lot.
+  - `ResepSeeder` — resep semua menu asli (~349 baris `resep` termasuk kemasan; takaran L otomatis ×1,3, cup/botol/box otomatis per kategori). Takaran = **estimasi standar** karena papan hanya menyebut komposisi, bukan gram/ml.
 
 ### 🚧 Belum / catatan
-- **Backend belum dijalankan** — PHP/Composer belum terpasang di mesin dev; kode belum diverifikasi runtime.
+- **Backend belum dijalankan** — PHP/Composer belum terpasang di mesin dev; kode belum diverifikasi runtime (seeder sudah lolos cross-check statis: semua bahan resep tersedia & semua menu punya resep).
 - **Frontend masih pakai sample data** — belum disambungkan ke API sungguhan.
 - Export laporan: `excel` = CSV sederhana (belum pakai maatwebsite/excel), `pdf` = DomPDF.
+- **Takaran resep perlu ditinjau** — angka gram/ml adalah estimasi wajar, bukan resep asli Homwok; sesuaikan bila ada takaran sebenarnya.
 
 ---
 
