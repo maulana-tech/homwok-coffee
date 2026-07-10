@@ -1,0 +1,324 @@
+[
+  {
+    "nama": "Homwok Original",
+    "kategori": "Homwok Coffee",
+    "harga": 18000,
+    "foto": "menu/homwok-original.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/c4e5bc44-d1d1-4183-9d74-1875b3b3f30c_d055b469-d922-45c9-829d-8f7acf58b4c8_master-menu-item-image_1583738508995.jpg"
+  },
+  {
+    "nama": "Homwok Signature",
+    "kategori": "Homwok Coffee",
+    "harga": 20000,
+    "foto": "menu/homwok-signature.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/8cff2bf1-1eaf-48fe-b447-98e7ae2a56c7_b31400e2-400c-42bd-ae31-fcd5c85585e3_master-menu-item-image_1583738516194.jpg"
+  },
+  {
+    "nama": "Hawaiian Coffee",
+    "kategori": "Homwok Coffee",
+    "harga": 20000,
+    "foto": "menu/hawaiian-coffee.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/5c724e79-9b11-4a4c-ae3a-018babdb1707_4c71476b-243b-4962-91c2-94e0b4b8eb20_master-menu-item-image_1583302776408.jpg"
+  },
+  {
+    "nama": "Sweet Black",
+    "kategori": "Homwok Coffee",
+    "harga": 16000,
+    "foto": "menu/sweet-black.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/3c9353e3-cd1b-4ef8-be89-9a83c7e686c3_cbb2a351-550e-406b-a4c3-bf068db14e72_master-menu-item-image_1583302793359.jpg"
+  },
+  {
+    "nama": "Homwok Booster",
+    "kategori": "Homwok Coffee",
+    "harga": 24000,
+    "foto": "menu/homwok-booster.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/0e36f27a-1792-4960-ad7d-bdd28e61ebd7_master-menu-item-image_1614153298543.jpg"
+  },
+  {
+    "nama": "Caramel",
+    "kategori": "Flavoured Coffee",
+    "harga": 24000,
+    "foto": "menu/caramel.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/b1ff0d8a-e9a7-4ee7-a7a5-2d6e2d37907f_0b157a72-8807-4ec9-9e3c-81e397909065_master-menu-item-image_1583302805466.jpg"
+  },
+  {
+    "nama": "Salted Caramel",
+    "kategori": "Flavoured Coffee",
+    "harga": 24000,
+    "foto": "menu/salted-caramel.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/d9fd8288-136a-4899-b324-5e04921a1526_8f9ae4d4-698c-44b9-9b18-80281d331f90_master-menu-item-image_1583302840494.jpg"
+  },
+  {
+    "nama": "Hazelnut",
+    "kategori": "Flavoured Coffee",
+    "harga": 24000,
+    "foto": "menu/hazelnut.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/baa6a8e2-7947-4aa0-8336-0d9fc25061f9_1222cc48-c08b-4e72-bd0e-cb5e6e3c1246_master-menu-item-image_1583302814715.jpg"
+  },
+  {
+    "nama": "Irish",
+    "kategori": "Flavoured Coffee",
+    "harga": 24000,
+    "foto": "menu/irish.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/4c5134bc-1993-4cca-8b45-d8347aa2916e_9349eceb-39be-4f01-9625-d8d11b49d41c_master-menu-item-image_1583302824528.jpg"
+  },
+  {
+    "nama": "Avocado Coffee",
+    "kategori": "Flavoured Coffee",
+    "harga": 24000,
+    "foto": "menu/avocado-coffee.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/3eacf129-f417-452a-b8a4-49b92b3534b8_0470e210-8f7e-4658-a0f6-b21fbd75472f_master-menu-item-image_1583302757699.jpg"
+  },
+  {
+    "nama": "Coca Rum",
+    "kategori": "Flavoured Coffee",
+    "harga": 24000,
+    "foto": "menu/coca-rum.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/d641a5e3-6cd2-42c7-9e2e-cd3c1ae4b0ee_master-menu-item-image_1614153265988.jpg"
+  },
+  {
+    "nama": "Matcha Latte",
+    "kategori": "Non Coffee",
+    "harga": 22000,
+    "foto": "menu/matcha-latte.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/3db9ef01-023a-4c2a-8fb5-ff66c9f6623b_b12d28ef-3e03-4fa0-9124-7c9ee41b8528_master-menu-item-image_1583302867760.jpg"
+  },
+  {
+    "nama": "Red Velvet",
+    "kategori": "Non Coffee",
+    "harga": 22000,
+    "foto": "menu/red-velvet.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/63784e45-98a4-4ccc-a70f-20cb85e8f11d_12c401ed-c1c5-4ed1-9eaf-8046bc33459f_master-menu-item-image_1583302937014.jpg"
+  },
+  {
+    "nama": "Oreo Blend",
+    "kategori": "Non Coffee",
+    "harga": 22000,
+    "foto": "menu/oreo-blend.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/76645b4d-1e36-4fd2-b0ab-4d6c32e72a55_0af3ea80-f5dc-4788-ace4-13da2ff3327f_master-menu-item-image_1583302884811.jpg"
+  },
+  {
+    "nama": "Taro",
+    "kategori": "Non Coffee",
+    "harga": 20000,
+    "foto": "menu/taro.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/3a44e802-ecd0-48c0-80b4-06da8b260ec8_fb9c6dc1-0615-46fb-a2f6-d6baa715e6ee_master-menu-item-image_1583738473283.jpg"
+  },
+  {
+    "nama": "Thai Tea",
+    "kategori": "Non Coffee",
+    "harga": 20000,
+    "foto": "menu/thai-tea.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/672ac3d7-aca3-4364-917a-941037aea9ff_a456bd32-c15a-4639-b97b-5302ac2d6de9_master-menu-item-image_1583738492689.jpg"
+  },
+  {
+    "nama": "Rum Regal",
+    "kategori": "Non Coffee",
+    "harga": 22000,
+    "foto": "menu/rum-regal.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/0b925091-7564-4247-bf97-0880982bb618_b37efda5-edb6-4121-a1dd-0ac76535cda1_master-menu-item-image_1583302955061.jpg"
+  },
+  {
+    "nama": "Lychee Tea",
+    "kategori": "Non Coffee",
+    "harga": 18000,
+    "foto": "menu/lychee-tea.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/081ec310-6b8d-436f-a810-84623bf3167d_9168b4d1-a8a4-4dff-900f-b2c8aad1aaaf_master-menu-item-image_1583302853977.jpg"
+  },
+  {
+    "nama": "Original Choco",
+    "kategori": "Non Coffee",
+    "harga": 20000,
+    "foto": "menu/original-choco.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/c49bd21a-2bdd-43d4-aa82-72c120808a65_Go-Biz_20210603_151455.jpeg"
+  },
+  {
+    "nama": "Avocado Choco",
+    "kategori": "Non Coffee",
+    "harga": 24000,
+    "foto": "menu/avocado-choco.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/a83ce0e6-3ed5-47b5-90c3-a922aab2c322_Go-Biz_20210603_151258.jpeg"
+  },
+  {
+    "nama": "Strawberry Rock",
+    "kategori": "New ! Summer Feast",
+    "harga": 20000,
+    "foto": "menu/strawberry-rock.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/b4571548-3bc6-43e8-bcc2-6dc3cc966f21_Go-Biz_20220710_110510.jpeg"
+  },
+  {
+    "nama": "Mango Fizz",
+    "kategori": "New ! Summer Feast",
+    "harga": 20000,
+    "foto": "menu/mango-fizz.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/7ad7b163-94b3-4021-b6a7-20d98329d132_Go-Biz_20220710_110626.jpeg"
+  },
+  {
+    "nama": "Sparkling Yellow",
+    "kategori": "New ! Summer Feast",
+    "harga": 24000,
+    "foto": "menu/sparkling-yellow.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/5db5557f-5f31-4c75-a4d2-c2b4da5717c0_Go-Biz_20220710_110802.jpeg"
+  },
+  {
+    "nama": "Tropical Fizzy",
+    "kategori": "New ! Summer Feast",
+    "harga": 24000,
+    "foto": "menu/tropical-fizzy.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/f5c353ea-62f6-4a46-8ae7-2b9490afbbec_Go-Biz_20220718_172952.jpeg"
+  },
+  {
+    "nama": "Mango Peach",
+    "kategori": "New ! Summer Feast",
+    "harga": 20000,
+    "foto": "menu/mango-peach.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/9199ba2c-a7ec-47ad-be24-2219e9c730a5_Go-Biz_20220710_111340.jpeg"
+  },
+  {
+    "nama": "Sparkling Berry",
+    "kategori": "New ! Summer Feast",
+    "harga": 20000,
+    "foto": "menu/sparkling-berry.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/e2837b7c-8c92-4ec2-aacb-6beae8d3ab32_Go-Biz_20220718_173152.jpeg"
+  },
+  {
+    "nama": "Traditional Fizz",
+    "kategori": "New ! Summer Feast",
+    "harga": 20000,
+    "foto": "menu/traditional-fizz.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/f50f6d48-bd52-4b6d-9054-1b903f6aa259_Go-Biz_20220718_173031.jpeg"
+  },
+  {
+    "nama": "Signature Aren 1 Liter",
+    "kategori": "Kopi Literan GetHom",
+    "harga": 75000,
+    "foto": "menu/signature-aren-1-liter.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/887f1e85-f6b2-4b9b-85df-637533975a06_Go-Biz_20210531_221208.jpeg"
+  },
+  {
+    "nama": "Coconut Caramel Rum 1 Liter",
+    "kategori": "Kopi Literan GetHom",
+    "harga": 80000,
+    "foto": "menu/coconut-caramel-rum-1-liter.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/16498b24-44c1-4546-bdc9-4283fa17715f_Go-Biz_20210531_221228.jpeg"
+  },
+  {
+    "nama": "Avocado Choco 1 Liter",
+    "kategori": "Kopi Literan GetHom",
+    "harga": 75000,
+    "foto": "menu/avocado-choco-1-liter.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/329f9c14-797a-446a-b58a-ea560b0b61e1_Go-Biz_20210531_221246.jpeg"
+  },
+  {
+    "nama": "Chocolate Original",
+    "kategori": "Roti Panggang",
+    "harga": 16000,
+    "foto": "menu/chocolate-original.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/2a30ad51-5048-4201-a8a1-2ecd9ca38c55_Go-Biz_20231114_123557.jpeg"
+  },
+  {
+    "nama": "Cheese",
+    "kategori": "Roti Panggang",
+    "harga": 16000,
+    "foto": "menu/cheese.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/46048258-501b-474c-b839-5725ae753404_Go-Biz_20231114_123641.jpeg"
+  },
+  {
+    "nama": "Chocolate Cheese",
+    "kategori": "Roti Panggang",
+    "harga": 18000,
+    "foto": "menu/chocolate-cheese.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/0223d333-6dc0-4171-a7ff-955f0356a6ec_Go-Biz_20231114_123712.jpeg"
+  },
+  {
+    "nama": "Chocolate Melt",
+    "kategori": "Roti Panggang",
+    "harga": 19000,
+    "foto": "menu/chocolate-melt.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/f872fa9f-4c53-4d88-a866-c329a8e4b30f_Go-Biz_20210919_220726.jpeg"
+  },
+  {
+    "nama": "Cheese Melt",
+    "kategori": "Roti Panggang",
+    "harga": 19000,
+    "foto": "menu/cheese-melt.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/310ac877-2a34-4b10-886b-c6254e69b798_Go-Biz_20231114_123751.jpeg"
+  },
+  {
+    "nama": "Oreo Cheese Melt",
+    "kategori": "Roti Panggang",
+    "harga": 20000,
+    "foto": "menu/oreo-cheese-melt.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/65890835-53f1-45b5-9097-7c2f59d219c8_Go-Biz_20231114_123826.jpeg"
+  },
+  {
+    "nama": "Double Cheese Melt",
+    "kategori": "Roti Panggang",
+    "harga": 24000,
+    "foto": "menu/double-cheese-melt.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/2631b452-82a5-4d26-8ca7-fa3151f325a2_Go-Biz_20210919_212131.jpeg"
+  },
+  {
+    "nama": "Cheese Garlic Bread",
+    "kategori": "Roti Panggang",
+    "harga": 16000,
+    "foto": "menu/cheese-garlic-bread.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/9f43da1f-1bd3-4c4c-9d85-2da365cf9709_Go-Biz_20231114_124217.jpeg"
+  },
+  {
+    "nama": "Frenchfries Original",
+    "kategori": "Snack",
+    "harga": 15000,
+    "foto": "menu/frenchfries-original.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/bcfba0c3-5d04-4052-8c25-9848b454daa0_Go-Biz_20210919_170039.jpeg"
+  },
+  {
+    "nama": "Frenchfries BBQ",
+    "kategori": "Snack",
+    "harga": 17000,
+    "foto": "menu/frenchfries-bbq.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/baf4f4e5-2031-421a-9959-b6217a968d13_Go-Biz_20210919_175703.jpeg"
+  },
+  {
+    "nama": "Frenchfries Cheese",
+    "kategori": "Snack",
+    "harga": 17000,
+    "foto": "menu/frenchfries-cheese.jpeg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/bf2c1f42-37b2-4758-a257-bfb9a2ff42cc_Go-Biz_20210919_175719.jpeg"
+  },
+  {
+    "nama": "Chicken Black Pepper with Egg",
+    "kategori": "Rice Bowl",
+    "harga": 24000,
+    "foto": "menu/chicken-black-pepper-with-egg.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/e06ed783-61cb-4d63-a5ba-fd34ed696e1f_eeb53e70-19d0-4843-9fc8-deadf1193d4d_master-menu-item-image_1589533343797.jpg"
+  },
+  {
+    "nama": "Chicken Katsu Teriyaki with Egg",
+    "kategori": "Rice Bowl",
+    "harga": 24000,
+    "foto": "menu/chicken-katsu-teriyaki-with-egg.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/9cb2f307-c8c8-4711-9dd8-ea326d1f6382_d2b43dc7-462f-4ef4-9e2e-572499d8a3bd_master-menu-item-image_1585822053335.jpg"
+  },
+  {
+    "nama": "Chicken Katsu Mayo with Egg",
+    "kategori": "Rice Bowl",
+    "harga": 24000,
+    "foto": "menu/chicken-katsu-mayo-with-egg.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/24d15d56-fe40-4590-a66d-ecdbadf4e470_b308ba02-4029-4d5a-a2a5-9b039a019c57_master-menu-item-image_1589533408906.jpg"
+  },
+  {
+    "nama": "Bistik Galantin With Egg",
+    "kategori": "Rice Bowl",
+    "harga": 24000,
+    "foto": "menu/bistik-galantin-with-egg.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/6660e9ef-37f4-4454-b981-3dae1bf575fc_1ba70ad1-535a-4bea-b65a-ccaa5467f890_master-menu-item-image_1589533434254.jpg"
+  },
+  {
+    "nama": "Chicken Salted Egg with Egg",
+    "kategori": "Rice Bowl",
+    "harga": 26000,
+    "foto": "menu/chicken-salted-egg-with-egg.jpg",
+    "sumber": "https://i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/5e0d6d96-b965-4452-8bc1-c4bca6f6b5af_master-menu-item-image_1614153225069.jpg"
+  }
+]
