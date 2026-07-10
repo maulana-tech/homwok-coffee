@@ -84,7 +84,7 @@ export function CheckoutModal({
 
             <div className="space-y-2 max-h-64 overflow-auto pr-1">
               {items.map((i) => (
-                <div key={i.id_menu} className="flex justify-between text-sm">
+                <div key={i.key} className="flex justify-between text-sm">
                   <span className="uppercase font-medium">
                     {i.qty}× {i.nama_menu}
                   </span>
