@@ -94,6 +94,22 @@
   }
 }
 
+/* ── Ukuran font global yang bisa diatur user ──
+   Karena semua ukuran Tailwind (text-*, spacing) berbasis rem, mengubah
+   font-size di <html> menskala seluruh UI secara proporsional. */
+html {
+  font-size: 16px;
+}
+html[data-font-size="kecil"] {
+  font-size: 14px;
+}
+html[data-font-size="normal"] {
+  font-size: 16px;
+}
+html[data-font-size="besar"] {
+  font-size: 18px;
+}
+
 /* ── Print styling for 80mm thermal receipts ── */
 @media print {
   @page {

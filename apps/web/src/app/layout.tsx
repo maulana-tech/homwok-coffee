@@ -24,6 +24,14 @@ export default function RootLayout({
       className={`${inter.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        {/* Terapkan ukuran font tersimpan sebelum paint agar tidak berkedip. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=localStorage.getItem('homwok-font-size');document.documentElement.setAttribute('data-font-size',(s==='kecil'||s==='normal'||s==='besar')?s:'normal');}catch(e){document.documentElement.setAttribute('data-font-size','normal');}})();`,
+          }}
+        />
+      </head>
       <body className="font-sans min-h-screen bg-background text-foreground">
         <Providers>{children}</Providers>
         <Toaster position="top-center" richColors />

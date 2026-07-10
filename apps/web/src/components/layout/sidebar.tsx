@@ -15,6 +15,7 @@ import {
   Layers,
   LogOut,
   Package,
+  Settings,
   ShoppingBag,
   ShoppingCart,
   TrendingUp,
@@ -43,6 +44,7 @@ const menuItems: NavItem[] = [
   { icon: FileText, label: "Laporan HPP", href: "/laporan/hpp", roles: ["manager"] },
   { icon: TrendingUp, label: "Laba Rugi", href: "/laporan/laba-rugi", roles: ["manager"] },
   { icon: Layers, label: "Kartu Persediaan", href: "/laporan/kartu-persediaan", roles: ["manager"] },
+  { icon: Settings, label: "Pengaturan", href: "/pengaturan", roles: ["barista", "manager"] },
 ];
 
 export function Sidebar({ user }: { user: Pegawai }) {
