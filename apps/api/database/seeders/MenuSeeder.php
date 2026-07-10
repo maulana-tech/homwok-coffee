@@ -140,15 +140,67 @@ class MenuSeeder extends Seeder
         $addSingle('Frenchfries', $frenchfries);
         $addSingle('Rice Bowl', $riceBowl);
 
+        // Load mapping foto
+        $fotoMap = [];
+        $jsonPath = __DIR__ . '/assets/menu-foto.json';
+
+        // Normalisasi nama untuk pencocokan yang fleksibel
+        $normalise = function ($name) {
+            $name = strtolower($name);
+            $name = str_replace('barbeque', 'bbq', $name);
+            $name = str_replace('1l', '1liter', $name);
+            $name = str_replace([' (r)', ' (l)', 'with egg', 'rice bowl', 'roti panggang', '1 liter', '1liter', 'botol', 'gethom', 'literan'], '', $name);
+            $name = preg_replace('/[^a-z0-9]/', '', $name);
+            return trim($name);
+        };
+
+        if (file_exists($jsonPath)) {
+            $jsonContent = file_get_contents($jsonPath);
+            $jsonArr = json_decode($jsonContent, true);
+            if (is_array($jsonArr)) {
+                foreach ($jsonArr as $item) {
+                    if (isset($item['nama']) && isset($item['foto'])) {
+                        $normName = $normalise($item['nama']);
+                        $fotoMap[$normName] = $item['foto'];
+                    }
+                }
+            }
+        }
+
+        // Copy asset foto ke folder storage Laravel public agar bisa diakses
+        $sourceDir = __DIR__ . '/assets/menu';
+        $targetDir = storage_path('app/public/menu');
+        if (file_exists($sourceDir)) {
+            if (!file_exists($targetDir)) {
+                mkdir($targetDir, 0755, true);
+            }
+            $imageFiles = glob($sourceDir . '/*');
+            if (is_array($imageFiles)) {
+                foreach ($imageFiles as $filePath) {
+                    if (is_file($filePath)) {
+                        $fileName = basename($filePath);
+                        // Copy jika belum ada di storage
+                        $destPath = $targetDir . '/' . $fileName;
+                        if (!file_exists($destPath)) {
+                            copy($filePath, $destPath);
+                        }
+                    }
+                }
+            }
+        }
+
         // Bulk insert (harga papan × 1.000).
         $now = now();
         $data = [];
         foreach ($rows as [$nama, $kategori, $ribuan]) {
+            $normName = $normalise($nama);
+            $foto = $fotoMap[$normName] ?? null;
+
             $data[] = [
                 'nama_menu' => $nama,
                 'kategori' => $kategori,
                 'harga_jual' => $ribuan * 1000,
-                'foto' => null,
+                'foto' => $foto,
                 'aktif' => true,
                 'created_at' => $now,
                 'updated_at' => $now,
