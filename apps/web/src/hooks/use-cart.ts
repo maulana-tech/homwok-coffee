@@ -4,11 +4,14 @@ import { useCallback, useEffect, useState } from "react";
 import type { Menu } from "@homwok/types";
 
 export interface CartLine {
+  key: string;
   id_menu: number;
   nama_menu: string;
   harga_jual: number;
   qty: number;
   subtotal: number;
+  sugar?: string;
+  ice?: string;
 }
 
 const STORAGE_KEY = "homwok_cart";
@@ -37,43 +40,61 @@ export function useCart() {
     if (isHydrated) localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   }, [items, isHydrated]);
 
-  const addItem = useCallback((menu: Menu) => {
+  const addItem = useCallback((menu: Menu, sugar?: string, ice?: string, qty: number = 1) => {
     setItems((prev) => {
-      const existing = prev.find((i) => i.id_menu === menu.id_menu);
+      // Create a unique key for the item based on id_menu and options
+      const sugarSuffix = sugar ? `-${sugar.toLowerCase().replace(/\s+/g, '')}` : "";
+      const iceSuffix = ice ? `-${ice.toLowerCase().replace(/\s+/g, '')}` : "";
+      const key = `${menu.id_menu}${sugarSuffix}${iceSuffix}`;
+
+      // Build custom name for display in receipt/cart
+      let nama_menu = menu.nama_menu;
+      const options: string[] = [];
+      if (sugar && sugar !== "Normal") options.push(sugar);
+      if (ice && ice !== "Normal") options.push(ice);
+      if (options.length > 0) {
+        nama_menu = `${menu.nama_menu} [${options.join(", ")}]`;
+      }
+
+      const existing = prev.find((i) => i.key === key);
       if (existing) {
         return prev.map((i) =>
-          i.id_menu === menu.id_menu
-            ? { ...i, qty: i.qty + 1, subtotal: (i.qty + 1) * i.harga_jual }
+          i.key === key
+            ? { ...i, qty: i.qty + qty, subtotal: (i.qty + qty) * i.harga_jual }
             : i,
         );
       }
+
       return [
         ...prev,
         {
+          key,
           id_menu: menu.id_menu,
-          nama_menu: menu.nama_menu,
+          nama_menu,
           harga_jual: menu.harga_jual,
-          qty: 1,
-          subtotal: menu.harga_jual,
+          qty,
+          subtotal: menu.harga_jual * qty,
+          sugar,
+          ice,
         },
       ];
     });
   }, []);
 
-  const updateQty = useCallback((id: number, qty: number) => {
+  const updateQty = useCallback((key: string, qty: number) => {
     if (qty <= 0) {
-      setItems((p) => p.filter((i) => i.id_menu !== id));
+      setItems((p) => p.filter((i) => i.key !== key));
       return;
     }
     setItems((p) =>
       p.map((i) =>
-        i.id_menu === id ? { ...i, qty, subtotal: qty * i.harga_jual } : i,
+        i.key === key ? { ...i, qty, subtotal: qty * i.harga_jual } : i,
       ),
     );
   }, []);
 
   const removeItem = useCallback(
-    (id: number) => setItems((p) => p.filter((i) => i.id_menu !== id)),
+    (key: string) => setItems((p) => p.filter((i) => i.key !== key)),
     [],
   );
 
