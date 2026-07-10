@@ -9,8 +9,8 @@ interface CartProps {
   items: CartLine[];
   total: number;
   itemCount: number;
-  onUpdateQty: (id: number, qty: number) => void;
-  onRemove: (id: number) => void;
+  onUpdateQty: (key: string, qty: number) => void;
+  onRemove: (key: string) => void;
   onClear?: () => void;
   onCheckout: () => void;
 }
@@ -35,7 +35,7 @@ export function Cart({
       </div>
 
       <ScrollArea className="flex-1">
-        <div className="p-3 space-y-2">
+        <div className="p-3 space-y-3">
           {items.length === 0 ? (
             <div className="text-center py-16 text-muted-foreground uppercase text-sm tracking-widest">
               Keranjang kosong
@@ -43,14 +43,14 @@ export function Cart({
           ) : (
             items.map((i) => (
               <CartItem
-                key={i.id_menu}
+                key={i.key}
                 name={i.nama_menu}
                 price={i.harga_jual}
                 quantity={i.qty}
                 subtotal={i.subtotal}
-                onIncrease={() => onUpdateQty(i.id_menu, i.qty + 1)}
-                onDecrease={() => onUpdateQty(i.id_menu, i.qty - 1)}
-                onRemove={() => onRemove(i.id_menu)}
+                onIncrease={() => onUpdateQty(i.key, i.qty + 1)}
+                onDecrease={() => onUpdateQty(i.key, i.qty - 1)}
+                onRemove={() => onRemove(i.key)}
               />
             ))
           )}
