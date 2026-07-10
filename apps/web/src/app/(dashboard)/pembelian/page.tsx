@@ -3,14 +3,14 @@
 import { useMemo, useState } from "react";
 import {
   Button,
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
   Input,
   Label,
   POSButton,
@@ -155,28 +155,31 @@ export default function PembelianPage() {
           </h1>
         </div>
 
-        <Dialog
+        <Sheet
           open={open}
           onOpenChange={(o) => {
             setOpen(o);
             if (!o) resetForm();
           }}
         >
-          <DialogTrigger asChild>
+          <SheetTrigger asChild>
             <POSButton variant="accent">+ Tambah Pembelian</POSButton>
-          </DialogTrigger>
+          </SheetTrigger>
 
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle className="uppercase font-semibold tracking-tight">
+          <SheetContent
+            side="right"
+            className="w-full gap-0 p-0 sm:max-w-2xl rounded-l-2xl"
+          >
+            <SheetHeader className="border-b border-border px-5 pb-3 pt-5 pr-12">
+              <SheetTitle className="uppercase font-semibold tracking-tight">
                 Tambah Pembelian
-              </DialogTitle>
-              <DialogDescription>
+              </SheetTitle>
+              <SheetDescription>
                 Setiap baris bahan menjadi satu lot FIFO (detail_pembelian).
-              </DialogDescription>
-            </DialogHeader>
+              </SheetDescription>
+            </SheetHeader>
 
-            <div className="space-y-4">
+            <div className="flex-1 overflow-y-auto px-5 py-5 space-y-4">
               {/* Header fields */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
@@ -306,16 +309,16 @@ export default function PembelianPage() {
               </div>
             </div>
 
-            <DialogFooter>
-              <DialogClose asChild>
+            <SheetFooter className="flex-row justify-end gap-2 border-t border-border px-5 py-4">
+              <SheetClose asChild>
                 <POSButton variant="outline">Batal</POSButton>
-              </DialogClose>
+              </SheetClose>
               <POSButton variant="accent" onClick={handleSave}>
                 Simpan Pembelian
               </POSButton>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+            </SheetFooter>
+          </SheetContent>
+        </Sheet>
       </div>
 
       {/* Purchases table */}
