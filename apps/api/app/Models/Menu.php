@@ -29,7 +29,7 @@ class Menu extends Model
     /** URL publik penuh dari path foto (null jika belum ada foto). */
     public function getFotoUrlAttribute(): ?string
     {
-        return $this->foto ? Storage::url($this->foto) : null;
+        return $this->foto ? url(Storage::url($this->foto)) : null;
     }
 
     public function resep()
