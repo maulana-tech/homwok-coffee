@@ -36,7 +36,7 @@ const menuItems: NavItem[] = [
   { icon: ShoppingCart, label: "Kasir", href: "/kasir", roles: ["barista"] },
   { icon: Coffee, label: "Menu", href: "/master/menu", roles: ["barista", "manager"] },
   { icon: Package, label: "Bahan Baku", href: "/master/bahan", roles: ["barista", "manager"] },
-  { icon: Users, label: "Pegawai", href: "/master/pegawai", roles: ["barista", "manager"] },
+  { icon: Users, label: "Pegawai", href: "/master/pegawai", roles: ["manager"] },
   { icon: ShoppingBag, label: "Pembelian", href: "/pembelian", roles: ["barista", "manager"] },
   { icon: ClipboardList, label: "Penjualan", href: "/penjualan", roles: ["barista", "manager"] },
   { icon: TrendingUp, label: "Laporan Penjualan", href: "/laporan/penjualan", roles: ["manager"] },
