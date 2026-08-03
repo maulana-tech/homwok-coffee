@@ -7,19 +7,6 @@ use App\Models\Menu;
 use App\Models\BahanBaku;
 use App\Models\Resep;
 
-/**
- * Resep (komposisi bahan) untuk seluruh menu asli Homwok.
- *
- * - Resep didefinisikan per NAMA DASAR menu (tanpa akhiran " (R)"/" (L)").
- *   Takaran yang ditulis = ukuran Reguler; ukuran Large otomatis ×1,3.
- * - Kemasan (paper cup 12oz/16oz, botol, box) ditambahkan otomatis menurut
- *   kategori + ukuran, jadi tidak perlu ditulis di tiap resep.
- * - Menu demo FIFO (Espresso Solo, Caffe Latte, Kopi Susu Aren) TIDAK ada di
- *   sini karena sudah punya resep sendiri dari DatabaseSeeder.
- *
- * Takaran = estimasi standar (papan menu hanya menyebut komposisi deskriptif,
- * bukan takaran gram/ml).
- */
 class ResepSeeder extends Seeder
 {
     /** Faktor takaran untuk ukuran Large. */
@@ -85,31 +72,6 @@ class ResepSeeder extends Seeder
             'Botol 1L Mango Peach' => [['Sirup Mango', 80], ['Buah Peach Segar', 80], ['Soda', 700]],
             'Botol 1L Strawberry Rock' => [['Sirup Special', 60], ['Buah Strawberry Segar', 80], ['Soda', 700]],
 
-            // ── Roti Panggang ──
-            'Roti Panggang Chocolate Original' => [['Roti Tawar', 2], ['Selai Coklat', 30]],
-            'Roti Panggang Cheese' => [['Roti Tawar', 2], ['Keju Cheddar', 30]],
-            'Roti Panggang Chocolate Cheese' => [['Roti Tawar', 2], ['Selai Coklat', 20], ['Keju Cheddar', 20]],
-            'Roti Panggang Chocolate Melt' => [['Roti Tawar', 2], ['Selai Coklat', 20], ['Mozzarella', 30]],
-            'Roti Panggang Cheese Melt' => [['Roti Tawar', 2], ['Keju Cheddar', 20], ['Mozzarella', 30]],
-            'Roti Panggang Oreo Cheese Melt' => [['Roti Tawar', 2], ['Oreo', 20], ['Mozzarella', 30]],
-            'Roti Panggang Double Cheese Melt' => [['Roti Tawar', 2], ['Keju Cheddar', 30], ['Mozzarella', 40]],
-            'Roti Panggang Smokebeef Egg Cheese' => [['Roti Tawar', 2], ['Smoked Beef', 30], ['Telur', 1], ['Keju Cheddar', 20]],
-            'Cheese Garlic Bread' => [['Roti Tawar', 2], ['Garlic Butter', 20], ['Keju Cheddar', 20]],
-
-            // ── Frenchfries ──
-            'Frenchfries Original' => [['Kentang', 150]],
-            'Frenchfries Barbeque' => [['Kentang', 150], ['Bumbu Barbeque', 8]],
-            'Frenchfries Cheese' => [['Kentang', 150], ['Bumbu Keju', 8]],
-            'Frenchfries Spicy Balado' => [['Kentang', 150], ['Bumbu Balado', 8]],
-            'Frenchfries Hot and Spicy' => [['Kentang', 150], ['Bumbu Hot & Spicy', 8]],
-
-            // ── Rice Bowl (nasi + sayur + telur + ayam/galantin + saus) ──
-            'Rice Bowl Chicken Blackpepper' => [['Nasi Putih', 200], ['Sayur Segar', 40], ['Telur', 1], ['Fillet Ayam', 100], ['Saus Blackpepper', 30]],
-            'Rice Bowl Chicken Katsu Teriyaki' => [['Nasi Putih', 200], ['Sayur Segar', 40], ['Telur', 1], ['Fillet Ayam', 100], ['Saus Teriyaki', 30]],
-            'Rice Bowl Chicken Katsu Mayo' => [['Nasi Putih', 200], ['Sayur Segar', 40], ['Telur', 1], ['Fillet Ayam', 100], ['Saus Mayo', 30]],
-            'Rice Bowl Chicken Cheeze' => [['Nasi Putih', 200], ['Sayur Segar', 40], ['Telur', 1], ['Fillet Ayam', 100], ['Saus Keju', 30]],
-            'Rice Bowl Bistik Galantin' => [['Nasi Putih', 200], ['Sayur Segar', 40], ['Telur', 1], ['Galantin', 120], ['Saus Blackpepper', 30]],
-            'Rice Bowl Chicken Salted Egg' => [['Nasi Putih', 200], ['Sayur Segar', 40], ['Telur', 1], ['Fillet Ayam', 100], ['Saus Salted Egg', 30]],
         ];
 
         // Kategori yang memakai paper cup (minuman gelas).
