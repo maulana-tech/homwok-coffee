@@ -74,9 +74,6 @@ export default function LoginPage() {
             <p className="text-xl font-light leading-relaxed text-zinc-100 italic">
               &ldquo;Presisi dalam setiap seduhan, kecepatan dalam setiap transaksi. Kelola operasional kedai kopi Anda dengan keanggunan kasir digital.&rdquo;
             </p>
-            <footer className="text-xs tracking-wider text-zinc-400 uppercase font-mono">
-              — Homwok Coffee Engine v1.0.0
-            </footer>
           </blockquote>
         </div>
       </div>
