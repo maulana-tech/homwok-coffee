@@ -8,20 +8,6 @@ use App\Models\BahanBaku;
 use App\Models\Pembelian;
 use App\Models\DetailPembelian;
 
-/**
- * Bahan baku lengkap untuk seluruh menu Homwok + stok awal.
- *
- * Untuk tiap bahan yang BARU dibuat, dibuatkan satu lot pembelian "Stok Awal"
- * (harga_beli per satuan) agar FifoCostCalculator punya lot untuk dikonsumsi
- * sehingga HPP setiap penjualan menu asli benar-benar terhitung.
- *
- * Empat bahan demo (Biji Kopi Arabika, Susu Segar, Sirup Gula Aren, Paper Cup
- * 12oz) sudah dibuat + punya lot di DatabaseSeeder, jadi firstOrCreate akan
- * memakainya kembali dan tidak membuat lot ganda.
- *
- * Harga & takaran = estimasi standar (papan menu hanya menyebut komposisi,
- * bukan harga bahan / takaran).
- */
 class BahanBakuSeeder extends Seeder
 {
     /** Jumlah stok awal & stok minimum default per satuan. */
