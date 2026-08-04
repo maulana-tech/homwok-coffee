@@ -267,7 +267,7 @@ export function MenuGrid({ onSelect }: MenuGridProps) {
             </SheetHeader>
 
             {/* Scrollable Customize Options */}
-            <div className="flex-1 overflow-y-auto py-4 pr-1">
+            <div className="flex-1 min-h-0 overflow-y-auto py-4 pr-1">
               <div className="space-y-6">
                 {/* Size Configuration */}
                 {customizingMenu.sizes.length > 0 && (
