@@ -11,8 +11,8 @@ return new class extends Migration
         // Pegawai
         Schema::create('pegawai', function (Blueprint $table) {
             $table->id('id_pegawai');
-            $table->string('nama_lengkap');
-            $table->string('username')->unique();
+            $table->string('nama_lengkap', 50);
+            $table->string('username', 50)->unique();
             $table->string('kata_sandi');
             $table->enum('peran', ['barista', 'manager']);
             $table->boolean('aktif')->default(true);
@@ -22,8 +22,8 @@ return new class extends Migration
         // Menu
         Schema::create('menu', function (Blueprint $table) {
             $table->id('id_menu');
-            $table->string('nama_menu');
-            $table->string('kategori');
+            $table->string('nama_menu', 50);
+            $table->string('kategori', 50);
             $table->decimal('harga_jual', 15, 2);
             $table->string('foto')->nullable(); // path di disk 'public', mis. "menu/abc.jpg"
             $table->boolean('aktif')->default(true);
@@ -33,8 +33,8 @@ return new class extends Migration
         // Bahan Baku
         Schema::create('bahan_baku', function (Blueprint $table) {
             $table->id('id_bahan');
-            $table->string('nama_bahan');
-            $table->string('satuan');
+            $table->string('nama_bahan', 50);
+            $table->string('satuan', 50);
             $table->decimal('stok_minimum', 12, 2);
             $table->timestamps();
         });
@@ -45,7 +45,7 @@ return new class extends Migration
             $table->foreignId('id_menu')->constrained('menu', 'id_menu');
             $table->foreignId('id_bahan')->constrained('bahan_baku', 'id_bahan');
             $table->decimal('takaran', 12, 2);
-            $table->string('satuan');
+            $table->string('satuan', 50);
             $table->timestamps();
         });
 
@@ -53,9 +53,9 @@ return new class extends Migration
         Schema::create('pembelian', function (Blueprint $table) {
             $table->id('id_pembelian');
             $table->foreignId('id_pegawai')->constrained('pegawai', 'id_pegawai');
-            $table->string('nomor_pembelian')->unique();
+            $table->string('nomor_pembelian', 50)->unique();
             $table->date('tanggal_beli');
-            $table->string('pemasok');
+            $table->string('pemasok', 50);
             $table->decimal('total_beli', 15, 2);
             $table->timestamps();
         });
@@ -77,7 +77,7 @@ return new class extends Migration
         Schema::create('penjualan', function (Blueprint $table) {
             $table->id('id_penjualan');
             $table->foreignId('id_pegawai')->constrained('pegawai', 'id_pegawai');
-            $table->string('nomor_nota')->unique();
+            $table->string('nomor_nota', 50)->unique();
             $table->dateTime('tanggal_jual');
             $table->decimal('total_jual', 15, 2);
             $table->decimal('total_diskon', 15, 2)->default(0);
