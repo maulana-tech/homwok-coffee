@@ -6,7 +6,7 @@ import { Badge } from "./badge";
 
 interface MenuCardProps extends React.HTMLAttributes<HTMLButtonElement> {
   name: string;
-  price: number;
+  price: React.ReactNode;
   category: string;
   /** URL foto menu; kosong → tampilkan ikon fallback per kategori. */
   imageUrl?: string | null;
@@ -99,7 +99,7 @@ const MenuCard = React.forwardRef<HTMLButtonElement, MenuCardProps>(
             {name}
           </h3>
           <p className="mt-auto text-lg font-semibold">
-            Rp {price.toLocaleString("id-ID")}
+            {typeof price === "number" ? `Rp ${price.toLocaleString("id-ID")}` : price}
           </p>
         </div>
       </button>
