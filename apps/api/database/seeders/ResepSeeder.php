@@ -19,6 +19,8 @@ class ResepSeeder extends Seeder
 
     public function run(): void
     {
+        Resep::truncate();
+
         // base name => [[nama_bahan, takaran Reguler], ...] (tanpa kemasan)
         $resep = [
             // ── Coffee ──

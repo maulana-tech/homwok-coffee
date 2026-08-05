@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheat Sheet Sidang — Homwok Coffee POS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-soft: #f5f1ea;
+            --paper: #faf7f1;
+            --ink: #1f1b16;
+            --ink-soft: #4a4239;
+            --ink-muted: #7a7165;
+            --line: #d8cfc0;
+            --line-soft: #e8e2d5;
+            --accent: #6b4f2e;
+            --serif: "Lora", Georgia, "Times New Roman", serif;
+            --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        @page {
+            size: A4;
+            margin: 10mm 12mm 10mm 12mm;
+        }
+
+        html, body {
+            font-family: var(--sans);
+            background: #fff;
+            color: var(--ink);
+            line-height: 1.42;
+            font-size: 8.4pt;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1pt solid var(--ink);
+            padding-bottom: 4pt;
+            margin-bottom: 6pt;
+        }
+        header .meta {
+            font-size: 6.5pt;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ink-muted);
+            margin-bottom: 2pt;
+            font-weight: 500;
+        }
+        header h1 {
+            font-family: var(--serif);
+            font-size: 14pt;
+            font-weight: 500;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+        header h1 em { font-style: italic; color: var(--accent); }
+        header .subtitle {
+            font-family: var(--serif);
+            font-size: 8pt;
+            color: var(--ink-soft);
+            font-style: italic;
+            margin-top: 1pt;
+            display: inline-block;
+            margin-right: 6pt;
+        }
+        header .quick {
+            font-size: 7.5pt;
+            color: var(--ink-muted);
+            display: inline-block;
+        }
+
+        main { padding: 0; }
+
+        /* Section */
+        section { margin-bottom: 5pt; }
+        section h2 {
+            font-family: var(--serif);
+            font-size: 9.5pt;
+            font-weight: 600;
+            color: var(--ink);
+        }
+        section h2 .num {
+            color: var(--ink-muted);
+            font-weight: 400;
+            margin-right: 4pt;
+        }
+        section > .section-line {
+            width: 20pt;
+            height: 0.6pt;
+            background: var(--ink);
+            margin: 2pt 0 3pt;
+        }
+        section h3 {
+            font-family: var(--serif);
+            font-size: 8.5pt;
+            font-weight: 600;
+            color: var(--ink);
+            margin: 4pt 0 1pt;
+        }
+        section h4 {
+            font-family: var(--sans);
+            font-size: 6.8pt;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 3pt 0 1pt;
+        }
+
+        p { margin-bottom: 2pt; color: var(--ink-soft); }
+        p strong { color: var(--ink); font-weight: 600; }
+        em { font-family: var(--serif); font-style: italic; }
+
+        /* Lists */
+        ul, ol {
+            padding-left: 12pt;
+            margin: 1pt 0 2pt;
+        }
+        li { margin-bottom: 0.5pt; color: var(--ink-soft); }
+        li::marker { color: var(--ink-muted); }
+
+        /* Tip */
+        .tip {
+            background: var(--bg-soft);
+            border-left: 1.5pt solid var(--accent);
+            padding: 2pt 5pt;
+            margin: 2pt 0;
+            font-size: 8pt;
+            color: var(--ink-soft);
+            border-radius: 0 2pt 2pt 0;
+        }
+        .tip-label {
+            display: block;
+            font-size: 6pt;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5pt;
+        }
+        .tip em { color: var(--ink); }
+
+        /* Note */
+        .note {
+            background: var(--paper);
+            border: 0.4pt solid var(--line);
+            padding: 2.5pt 5pt;
+            margin: 2pt 0;
+            border-radius: 1.5pt;
+            font-size: 8.2pt;
+        }
+        .note-label {
+            font-family: var(--serif);
+            font-weight: 600;
+            color: var(--ink);
+            font-style: italic;
+            margin-right: 2pt;
+        }
+
+        /* Formula */
+        .formula {
+            text-align: center;
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 9pt;
+            color: var(--ink);
+            padding: 2.5pt 5pt;
+            margin: 2pt 0;
+            background: var(--bg-soft);
+            border-radius: 1.5pt;
+        }
+
+        /* Tables */
+        .table-wrap {
+            margin: 2pt 0;
+            border: 0.4pt solid var(--line);
+            border-radius: 1.5pt;
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 7.6pt;
+        }
+        thead {
+            background: var(--bg-soft);
+            border-bottom: 0.4pt solid var(--line);
+        }
+        th {
+            text-align: left;
+            padding: 2pt 4pt;
+            font-weight: 600;
+            font-size: 6.5pt;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
+        td {
+            padding: 2pt 4pt;
+            border-top: 0.4pt solid var(--line-soft);
+            color: var(--ink-soft);
+        }
+        tbody tr:first-child td { border-top: none; }
+        tfoot td {
+            background: var(--bg-soft);
+            font-weight: 600;
+            color: var(--ink);
+            border-top: 0.8pt solid var(--line);
+        }
+        td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+        /* Grids */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4pt;
+            margin: 2pt 0;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 3pt;
+            margin: 2pt 0;
+        }
+        .grid-item {
+            background: var(--paper);
+            border: 0.4pt solid var(--line);
+            border-radius: 1.5pt;
+            padding: 2.5pt 4pt;
+        }
+        .grid-item h5 {
+            font-family: var(--serif);
+            font-size: 7.8pt;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 0.5pt;
+        }
+        .grid-item p {
+            font-size: 7.4pt;
+            margin: 0;
+            color: var(--ink-soft);
+        }
+        .tag {
+            display: inline-block;
+            font-family: var(--sans);
+            font-size: 5.8pt;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 0.3pt 2.5pt;
+            background: var(--bg-soft);
+            color: var(--accent);
+            border-radius: 1.5pt;
+            vertical-align: middle;
+            text-transform: uppercase;
+        }
+        .tag-muted {
+            color: var(--ink-muted);
+        }
+
+        /* Key tables */
+        .key-table {
+            background: var(--paper);
+            border: 0.4pt solid var(--line);
+            border-left: 1.5pt solid var(--accent);
+            border-radius: 1.5pt;
+            padding: 2.5pt 5pt;
+            margin: 1.5pt 0;
+        }
+        .key-table .key-name {
+            font-family: var(--sans);
+            font-size: 6.5pt;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.5pt;
+        }
+        .key-table .key-desc {
+            font-family: var(--serif);
+            font-size: 8pt;
+            font-weight: 500;
+            color: var(--ink);
+            margin-bottom: 0.5pt;
+        }
+        .key-table .key-body {
+            font-size: 7.6pt;
+            color: var(--ink-soft);
+            margin: 0;
+        }
+
+        code {
+            font-family: "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.85em;
+            background: var(--bg-soft);
+            padding: 0.2pt 2pt;
+            border-radius: 1pt;
+            color: var(--ink);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 4pt;
+            padding-top: 3pt;
+            border-top: 0.4pt solid var(--line);
+            font-size: 6.5pt;
+            color: var(--ink-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+        footer em { font-family: var(--serif); }
+
+        /* Print */
+        @media print {
+            section, .key-table, .note, .tip, .table-wrap, .grid-2, .grid-3, .grid-item { 
+                page-break-inside: avoid;
+            }
+            h2, h3, h4 { page-break-after: avoid; }
+            thead { display: table-header-group; }
+            tr { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="meta">Tugas Akhir · Cheat Sheet Sidang</div>
+        <h1>Jawaban untuk Setiap <em>Pertanyaan Penguji</em></h1>
+        <span class="subtitle">Sistem POS dengan perhitungan HPP metode FIFO — Homwok Coffee</span>
+        <span class="quick">Hidayat 2023 · Weygandt 2019 · Pressman 2020 · Fielding 2000</span>
+    </header>
+
+    <main>
+
+        <!-- ============== PAGE 1: BAB I + BAB II TEORI ============== -->
+        <section id="bab1">
+            <h2><span class="num">I.</span>Pendahuluan</h2>
+            <div class="section-line"></div>
+
+            <h3>Latar Belakang</h3>
+            <div class="tip">
+                <span class="tip-label">Jika penguji bertanya</span>
+                <em>"Mengapa Anda mengangkat topik ini?"</em>
+            </div>
+            <p>UMKM industri kopi masih pakai pencatatan manual — rentan <strong>human error</strong>, tidak ada laporan <em>real-time</em>, tidak ada antrean FIFO. Homwok Coffee kesulitan hitung <strong>HPP</strong> akurat karena fluktuasi harga bahan baku (biji kopi, susu, sirup) antar periode. Dampak: harga jual tidak tepat, laba bias, stok lemah, risiko kedaluwarsa → kerugian finansial.</p>
+            <div class="note">
+                <span class="note-label">Solusi —</span>
+                Sistem POS berbasis web dengan pengelolaan persediaan <strong>FIFO</strong> otomatis. FIFO krusial untuk F&B karena selaras dengan alur fisik bahan baku <em>perishable</em>.
+            </div>
+
+            <h3>Rumusan Masalah</h3>
+            <div class="tip">
+                <span class="tip-label">Jika penguji bertanya</span>
+                <em>"Jadi, apa yang Anda teliti/buat?"</em>
+            </div>
+            <p>Bagaimana merancang dan membangun Aplikasi Penjualan Kasir (POS) berbasis web terintegrasi dengan fitur perhitungan HPP menggunakan metode FIFO pada Homwok Coffee.</p>
+
+            <h3>Ruang Lingkup</h3>
+            <div class="tip">
+                <span class="tip-label">Gunakan sebagai "tameng"</span>
+                jika penguji minta fitur tambahan.
+            </div>
+            <p>Hanya <strong>modul penjualan</strong> (kasir) dan <strong>modul persediaan</strong>. Metode hanya <strong>FIFO</strong> — tidak bahas LIFO/Average. Fokus pada bahan baku <em>perishable</em>.</p>
+        </section>
+
+        <section id="bab2">
+            <h2><span class="num">II.</span>Dasar Teori & Tinjauan Pustaka</h2>
+            <div class="section-line"></div>
+
+            <div class="grid-2">
+                <div>
+                    <h3>Point of Sale (POS)</h3>
+                    <p>Sistem elektronik untuk proses transaksi penjualan. Berkembang dari mesin kasir menjadi <strong>sistem informasi terintegrasi</strong> — pencatatan, manajemen persediaan, pelaporan (Hidayat & Farell, 2023). POS berbasis web percepat transaksi & tingkatkan pelayanan (Darmawan, 2021).</p>
+                </div>
+                <div>
+                    <h3>Persediaan (Inventory)</h3>
+                    <p>Aktiva untuk dijual atau untuk produksi (Weygandt et al., 2019). Tiga jenis: <strong>bahan baku</strong>, <strong>barang dalam proses</strong>, <strong>barang jadi</strong>. Pada F&B <em>perishable</em>, pengendalian persediaan berkaitan langsung dengan risiko kedaluwarsa.</p>
+                </div>
+            </div>
+
+            <h3>Metode Penilaian Persediaan</h3>
+            <div class="grid-3">
+                <div class="grid-item">
+                    <h5>FIFO <span class="tag">Dipilih</span></h5>
+                    <p>Pertama masuk = pertama keluar. HPP dari pembelian terlama; persediaan akhir = harga terbaru.</p>
+                </div>
+                <div class="grid-item">
+                    <h5>LIFO <span class="tag tag-muted">Tidak</span></h5>
+                    <p>Kebalikan FIFO. Tidak diakui PSAK Indonesia, jarang diterapkan.</p>
+                </div>
+                <div class="grid-item">
+                    <h5>Average <span class="tag tag-muted">Tidak</span></h5>
+                    <p>Biaya berdasarkan harga rata-rata seluruh unit, tanpa urutan masuk.</p>
+                </div>
+            </div>
+            <div class="note">
+                <span class="note-label">Kenapa FIFO?</span>
+                (1) Selaras alur fisik F&B → hindari kedaluwarsa. (2) Nilai persediaan akhir mendekati harga pasar terkini → lebih representatif.
+            </div>
+
+            <h3>Harga Pokok Penjualan (HPP / COGS)</h3>
+            <p>Akumulasi seluruh biaya langsung untuk barang yang terjual dalam satu periode (Weygandt et al., 2019). Komponen pada Homwok: biji kopi, susu, sirup, paper cup, plastic cup, sedotan yang terpakai untuk menu terjual.</p>
+            <div class="formula">HPP = Persediaan Awal + Pembelian Bersih − Persediaan Akhir</div>
+
+            <h3>Algoritma FIFO</h3>
+            <p>Diimplementasikan dengan <strong>antrian lot pembelian</strong> (tanggal, kuantitas, harga/unit). Saat transaksi: potong dari <strong>lot paling awal</strong>; jika kurang, lanjut lot berikutnya. HPP = akumulasi biaya lot terpotong.</p>
+            <div class="note">
+                <span class="note-label">Catatan —</span>
+                HPP = harga <em>lama</em>, persediaan akhir = harga <em>baru</em>. Saat inflasi, FIFO → HPP lebih rendah, laba kotor lebih tinggi vs Average.
+            </div>
+
+            <h3>Bill of Materials (BOM / Resep)</h3>
+            <p>Daftar terstruktur bahan + takaran untuk satu unit produk jadi (Heizer et al., 2020). Penghubung modul penjualan-persediaan: satu menu terjual → diterjemahkan ke bahan baku sesuai resep → dipotong dari antrian lot FIFO.</p>
+
+            <h3>Arsitektur & Teknologi</h3>
+            <div class="grid-2">
+                <div>
+                    <h4>Client-Server & RESTful API</h4>
+                    <p>Arsitektur <strong>decoupled</strong>. Komunikasi via REST — stateless, HTTP, GET/POST/PUT/DELETE (Fielding, 2000). Format: <strong>JSON</strong>. Logika bisnis (FIFO, HPP) penuh di backend.</p>
+                </div>
+                <div>
+                    <h4>Laravel & MVC (Backend)</h4>
+                    <p>Framework PHP dengan pola <em>Model-View-Controller</em> (Pressman & Maxim, 2020). Pada decoupled, View digantikan respons JSON via REST API.</p>
+                </div>
+                <div>
+                    <h4>React.js & Next.js (Frontend)</h4>
+                    <p>React — library JS komponen <em>reusable</em> + Virtual DOM (Naresvari & Susetyo, 2025). Next.js — routing, SSR, optimasi. Berjalan di <strong>Node.js</strong> (Pratama & Raharja, 2023).</p>
+                </div>
+                <div>
+                    <h4>Basis Data MySQL</h4>
+                    <p>RDBMS dengan tabel terelasi (Connolly & Begg, 2015). Diakses Laravel via ORM <em>Eloquent</em>. Simpan: master menu, resep, pembelian+lot FIFO, penjualan, log pemakaian bahan.</p>
+                </div>
+            </div>
+
+            <h3>Tinjauan Pustaka (Kebaruan)</h3>
+            <div class="tip">
+                <span class="tip-label">Jika penguji bertanya</span>
+                <em>"Apa bedanya dengan penelitian kakak tingkat sebelumnya?"</em>
+            </div>
+            <ul>
+                <li><strong>vs Darmawan (2021), Khumairoh (2025):</strong> hanya POS kasir, tanpa integrasi HPP FIFO</li>
+                <li><strong>vs Candrasari (2022):</strong> fokus klinik medis</li>
+                <li><strong>vs Cahyanto (2024), Alfionita (2024):</strong> fokus ritel, tanpa dekomposisi resep minuman</li>
+            </ul>
+            <div class="note">
+                <span class="note-label">Novelty —</span>
+                Satu-satunya yang mengintegrasikan POS kasir dengan pemotongan HPP <em>real-time</em> via dekomposisi lot FIFO khusus F&B (BOM).
+            </div>
+        </section>
+
+        <!-- ============== PAGE 2: BAB III + RINGKASAN ============== -->
+        <section id="bab3">
+            <h2><span class="num">III.</span>Analisis & Perancangan</h2>
+            <div class="section-line"></div>
+
+            <h3>Deskripsi Sistem</h3>
+            <div class="grid-2">
+                <div class="grid-item">
+                    <h5>Arsitektur Terpisah</h5>
+                    <p>Backend (Laravel) = REST API. Frontend (Next.js/React) = antarmuka.</p>
+                </div>
+                <div class="grid-item">
+                    <h5>Hak Akses (Role-Based)</h5>
+                    <p><strong>Barista:</strong> input master, pembelian, POS kasir, cetak struk. <strong>Manager:</strong> dashboard analitik & laporan.</p>
+                </div>
+            </div>
+
+            <h3>Non-Fungsional & Keamanan</h3>
+            <div class="tip">
+                <span class="tip-label">Senjata rahasia Anda</span>
+                jika dosen ragukan keamanan sistem saat toko ramai.
+            </div>
+            <ul>
+                <li><strong>Integritas Data</strong> — pembaruan stok dalam satu <em>database transaction</em> dengan <em>row locking</em> untuk mencegah <em>race condition</em> (kasir tekan tombol bayar bersamaan)</li>
+                <li><strong>Kecepatan</strong> — algoritma FIFO wajib dieksekusi <strong>di bawah 3 detik</strong></li>
+                <li><strong>Keamanan</strong> — kata sandi dienkripsi dengan <em>hashing</em></li>
+            </ul>
+
+            <h3>Contoh Numerik · Pemotongan Lot FIFO</h3>
+            <p>Tiga lot pembelian biji kopi, penjualan mengonsumsi 6.000 g:</p>
+            <div class="grid-2">
+                <div>
+                    <h4>Data Lot Pembelian</h4>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Lot</th><th>Tanggal</th>
+                                    <th class="num">Qty</th>
+                                    <th class="num">Harga/g</th>
+                                    <th class="num">Nilai</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>01 Mar</td><td class="num">5.000 g</td><td class="num">Rp120</td><td class="num">Rp600.000</td></tr>
+                                <tr><td>2</td><td>10 Mar</td><td class="num">5.000 g</td><td class="num">Rp135</td><td class="num">Rp675.000</td></tr>
+                                <tr><td>3</td><td>20 Mar</td><td class="num">5.000 g</td><td class="num">Rp150</td><td class="num">Rp750.000</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <h4>Pemotongan FIFO</h4>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Sumber</th>
+                                    <th class="num">Qty</th>
+                                    <th class="num">Harga</th>
+                                    <th class="num">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Lot 1</td><td class="num">5.000 g</td><td class="num">Rp120</td><td class="num">Rp600.000</td></tr>
+                                <tr><td>Lot 2</td><td class="num">1.000 g</td><td class="num">Rp135</td><td class="num">Rp135.000</td></tr>
+                            </tbody>
+                            <tfoot>
+                                <tr><td>Total</td><td class="num">6.000 g</td><td></td><td class="num">Rp735.000</td></tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <p>Sisa: Lot 2 = 4.000 g, Lot 3 = 5.000 g → persediaan akhir = (4.000 × Rp135) + (5.000 × Rp150) = <strong>Rp1.290.000</strong> (harga terbaru).</p>
+
+            <h3>3 Tabel Paling Krusial</h3>
+            <div class="tip">
+                <span class="tip-label">Hafalkan</span>
+                Jika dosen minta jelaskan database, langsung tembak ke 3 tabel ini.
+            </div>
+            <div class="grid-3">
+                <div class="key-table">
+                    <div class="key-name">Tabel <code>resep</code> · BOM</div>
+                    <p class="key-desc">Jembatan many-to-many menu ↔ bahan_baku.</p>
+                    <p class="key-body">Field takaran pasti per porsi.</p>
+                </div>
+                <div class="key-table">
+                    <div class="key-name">Tabel <code>detail_pembelian</code> · FIFO</div>
+                    <p class="key-desc">Faktur + lot antrean FIFO (ganda).</p>
+                    <p class="key-body">Kolom <code>sisa_qty</code> = stok per lot.</p>
+                </div>
+                <div class="key-table">
+                    <div class="key-name">Tabel <code>pemakaian_bahan</code> · Audit</div>
+                    <p class="key-desc">Paling krusial: bukti HPP benar.</p>
+                    <p class="key-body">Kunci relasi menu terjual ↔ lot dipotong + harga.</p>
+                </div>
+            </div>
+
+            <h3>Data Alur Diagram (DAD)</h3>
+            <p><strong>Level 0:</strong> Barista input → Sistem proses → Manager terima laporan. <strong>Level 1 (6 proses):</strong> (1) pegawai, (2) bahan baku, (3) resep, (4) pembelian, (5) penjualan (inti FIFO), (6) laporan.</p>
+
+            <h3>Input & Output</h3>
+            <div class="grid-2">
+                <div>
+                    <h4>Input Krusial</h4>
+                    <p><strong>Form Transaksi Kasir</strong> — algoritma FIFO dipicu di latar belakang setelah pembayaran.</p>
+                </div>
+                <div>
+                    <h4>Output Manajerial</h4>
+                    <ul>
+                        <li><strong>Penelusuran HPP</strong> — bukti bahan, lot, harga (validasi FIFO per nota)</li>
+                        <li><strong>Kartu Persediaan</strong> — mutasi masuk/keluar/saldo per bahan</li>
+                        <li><strong>Laba Rugi Kotor</strong> — omzet − total HPP riil</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="ringkasan">
+            <h2><span class="num">Ringkasan</span>Jawaban Singkat</h2>
+            <div class="section-line"></div>
+            <div class="grid-2">
+                <div class="grid-item">
+                    <h5>"Kenapa FIFO?"</h5>
+                    <p>Selaras alur fisik F&B + persediaan akhir ≈ harga pasar.</p>
+                </div>
+                <div class="grid-item">
+                    <h5>"Kenapa web?"</h5>
+                    <p>Multi-user, tanpa instalasi, fleksibel di semua perangkat.</p>
+                </div>
+                <div class="grid-item">
+                    <h5>"Bagaimana keamanannya?"</h5>
+                    <p>DB transaction + row locking + password hashing.</p>
+                </div>
+                <div class="grid-item">
+                    <h5>"Apa kebaruannya?"</h5>
+                    <p>POS + HPP FIFO <em>real-time</em> + BOM khusus F&B.</p>
+                </div>
+            </div>
+            <div class="grid-2">
+                <div class="formula">HPP = Pers. Awal + Pembelian Bersih − Pers. Akhir</div>
+                <div class="table-wrap">
+                    <table>
+                        <tbody>
+                            <tr><td>Contoh FIFO (6.000 g)</td><td class="num"><strong>Rp735.000</strong></td></tr>
+                            <tr><td>Persediaan akhir</td><td class="num"><strong>Rp1.290.000</strong></td></tr>
+                            <tr><td>Target kecepatan</td><td class="num"><strong>&lt; 3 detik</strong></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <span>Homwok Coffee POS · Cheat Sheet Sidang</span>
+        <span><em>Semoga lancar — selamat berjuang.</em></span>
+    </footer>
+
+</body>
+</html>
