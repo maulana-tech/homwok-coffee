@@ -28,8 +28,9 @@ import {
 import { formatRupiah } from "@homwok/lib";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, Search, ImagePlus, ImageOff, X, BookOpen } from "lucide-react";
-import { useMenus } from "@/hooks/use-data";
+import { useMenus, useBahan } from "@/hooks/use-data";
 import type { Menu } from "@homwok/types";
+import api from "@/lib/api";
 import { DataTable, type DataTableColumn } from "@/components/master/data-table";
 import { DeleteConfirm } from "@/components/master/delete-confirm";
 
@@ -57,6 +58,7 @@ const MAX_FOTO_MB = 2;
 
 export default function MasterMenuPage() {
   const { data, isLoading } = useMenus();
+  const { data: dataBahan } = useBahan();
   const [rows, setRows] = useState<Menu[]>([]);
   const [search, setSearch] = useState("");
 
@@ -66,6 +68,7 @@ export default function MasterMenuPage() {
 
   const [deleteTarget, setDeleteTarget] = useState<Menu | null>(null);
   const [selectedRecipeMenu, setSelectedRecipeMenu] = useState<Menu | null>(null);
+  const [resepForm, setResepForm] = useState({ id_bahan: "", takaran: "" });
 
   // Seed local state once the query resolves (no backend yet).
   useEffect(() => {
@@ -135,29 +138,34 @@ export default function MasterMenuPage() {
     }
 
     if (editing) {
-      setRows((prev) =>
-        prev.map((m) =>
-          m.id_menu === editing.id_menu
-            ? {
-                ...m,
-                nama_menu: nama,
-                kategori: form.kategori,
-                harga_jual: harga,
-                aktif: form.aktif,
-                foto_url: form.foto_url,
-              }
-            : m,
-        ),
-      );
-      // TODO: kirim multipart (POST + _method=PUT karena file):
-      //   const fd = new FormData();
-      //   fd.append("nama_menu", nama); ...; if (form.fotoFile) fd.append("foto", form.fotoFile);
-      //   await api.post(`/menu/${editing.id_menu}?_method=PUT`, fd);
-      toast.success(`Menu "${nama}" diperbarui`);
+      const fd = new FormData();
+      fd.append("nama_menu", nama);
+      fd.append("kategori", form.kategori);
+      fd.append("harga_jual", String(harga));
+      fd.append("aktif", form.aktif ? "1" : "0");
+      if (form.fotoFile) {
+        fd.append("foto", form.fotoFile);
+      } else if (!form.foto_url && editing.foto_url) {
+        fd.append("hapus_foto", "1");
+      }
+
+      api.post(`/menu/${editing.id_menu}?_method=PUT`, fd, {
+        headers: { "Content-Type": "multipart/form-data" }
+      }).then((res) => {
+        const savedData = res.data;
+        setRows((prev) =>
+          prev.map((m) => (m.id_menu === editing.id_menu ? { ...m, ...savedData, foto_url: savedData.foto_url ? `${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${savedData.foto_url}` : null } : m))
+        );
+        toast.success(`Menu "${nama}" diperbarui`);
+      }).catch((err) => {
+        console.error("Gagal update menu:", err);
+        toast.error("Gagal memperbarui menu ke server.");
+      });
     } else {
       const nextId =
         rows.reduce((max, m) => Math.max(max, m.id_menu), 0) + 1;
-      const created: Menu = {
+      
+      const createdMock: Menu = {
         id_menu: nextId,
         nama_menu: nama,
         kategori: form.kategori,
@@ -165,10 +173,29 @@ export default function MasterMenuPage() {
         aktif: form.aktif,
         foto_url: form.foto_url,
       };
-      setRows((prev) => [...prev, created]);
-      // TODO: const fd = new FormData(); ...; if (form.fotoFile) fd.append("foto", form.fotoFile);
-      //       await api.post("/menu", fd);
-      toast.success(`Menu "${nama}" ditambahkan`);
+      setRows((prev) => [...prev, createdMock]);
+
+      const fd = new FormData();
+      fd.append("nama_menu", nama);
+      fd.append("kategori", form.kategori);
+      fd.append("harga_jual", String(harga));
+      fd.append("aktif", form.aktif ? "1" : "0");
+      if (form.fotoFile) {
+        fd.append("foto", form.fotoFile);
+      }
+
+      api.post("/menu", fd, {
+        headers: { "Content-Type": "multipart/form-data" }
+      }).then((res) => {
+        const savedData = res.data;
+        setRows((prev) =>
+          prev.map((m) => (m.id_menu === nextId ? { ...m, ...savedData, foto_url: savedData.foto_url ? `${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${savedData.foto_url}` : null } : m))
+        );
+        toast.success(`Menu "${nama}" ditambahkan`);
+      }).catch((err) => {
+        console.error("Gagal tambah menu:", err);
+        toast.error("Gagal menambahkan menu ke server.");
+      });
     }
     setFormOpen(false);
   };
@@ -176,9 +203,111 @@ export default function MasterMenuPage() {
   const handleDelete = () => {
     if (!deleteTarget) return;
     setRows((prev) => prev.filter((m) => m.id_menu !== deleteTarget.id_menu));
-    // TODO: await api.delete(`/menu/${deleteTarget.id_menu}`)
-    toast.success(`Menu "${deleteTarget.nama_menu}" dihapus`);
+    
+    api.delete(`/menu/${deleteTarget.id_menu}`).then(() => {
+      toast.success(`Menu "${deleteTarget.nama_menu}" dihapus`);
+    }).catch((err) => {
+      console.error("Gagal hapus menu:", err);
+      toast.error("Gagal menghapus menu dari server.");
+    });
+    
     setDeleteTarget(null);
+  };
+
+  const handleAddResep = () => {
+    if (!selectedRecipeMenu) return;
+    const { id_bahan, takaran } = resepForm;
+    if (!id_bahan || !takaran || Number(takaran) <= 0) {
+      toast.error("Pilih bahan baku dan masukkan takaran yang valid");
+      return;
+    }
+    const bahan = dataBahan?.find((b) => b.id_bahan === Number(id_bahan));
+    if (!bahan) return;
+
+    const newResep = {
+      id_resep: Date.now(), // Mock ID
+      id_menu: selectedRecipeMenu.id_menu,
+      id_bahan: bahan.id_bahan,
+      takaran: Number(takaran),
+      satuan: bahan.satuan,
+      bahan_baku: {
+        id_bahan: bahan.id_bahan,
+        nama_bahan: bahan.nama_bahan,
+        satuan: bahan.satuan,
+      },
+    };
+
+    const updatedMenu = {
+      ...selectedRecipeMenu,
+      resep: [...(selectedRecipeMenu.resep || []), newResep as any],
+    };
+
+    setSelectedRecipeMenu(updatedMenu);
+    
+    // Update daftar utama agar resepnya tersimpan walau ditutup
+    setRows((prev) =>
+      prev.map((m) => (m.id_menu === updatedMenu.id_menu ? updatedMenu : m))
+    );
+
+    // Simpan ke API
+    api.post("/resep", {
+      id_menu: selectedRecipeMenu.id_menu,
+      id_bahan: Number(id_bahan),
+      takaran: Number(takaran),
+      satuan: bahan.satuan
+    }).then(res => {
+      // Perbarui mock ID dengan ID asli dari server
+      const savedResep = res.data;
+      setRows((prev) =>
+        prev.map((m) => {
+          if (m.id_menu !== updatedMenu.id_menu) return m;
+          return {
+            ...m,
+            resep: m.resep?.map((r) =>
+              r.id_resep === newResep.id_resep ? { ...r, id_resep: savedResep.id_resep } : r
+            ),
+          };
+        })
+      );
+      setSelectedRecipeMenu((prev) => {
+        if (!prev || prev.id_menu !== updatedMenu.id_menu) return prev;
+        return {
+          ...prev,
+          resep: prev.resep?.map((r) =>
+            r.id_resep === newResep.id_resep ? { ...r, id_resep: savedResep.id_resep } : r
+          ),
+        };
+      });
+    }).catch(err => {
+      console.warn("Gagal menyimpan resep ke server:", err);
+      toast.error("Gagal menyimpan ke server, hanya tersimpan lokal.");
+    });
+
+    setResepForm({ id_bahan: "", takaran: "" });
+    toast.success("Komposisi bahan baku ditambahkan ke resep");
+  };
+
+  const handleDeleteResep = (id_resep: number) => {
+    if (!selectedRecipeMenu) return;
+
+    // Optimistic UI update
+    const updatedMenu = {
+      ...selectedRecipeMenu,
+      resep: selectedRecipeMenu.resep?.filter((r) => r.id_resep !== id_resep) || [],
+    };
+    
+    setSelectedRecipeMenu(updatedMenu);
+    setRows((prev) =>
+      prev.map((m) => (m.id_menu === updatedMenu.id_menu ? updatedMenu : m))
+    );
+
+    // Kirim delete ke server
+    api.delete(`/resep/${id_resep}`).catch(err => {
+      console.warn("Gagal menghapus resep dari server:", err);
+      toast.error("Gagal menghapus resep di server.");
+    });
+    
+    toast.success("Komposisi bahan baku dihapus dari resep");
   };
 
   const columns: DataTableColumn<Menu>[] = [
@@ -436,6 +565,7 @@ export default function MasterMenuPage() {
                     <tr className="bg-primary text-primary-foreground border-b border-black">
                       <th className="p-3 text-xs font-semibold uppercase tracking-wider">Bahan Baku</th>
                       <th className="p-3 text-xs font-semibold uppercase tracking-wider text-right">Takaran</th>
+                      <th className="p-3 text-xs font-semibold uppercase tracking-wider text-right w-16">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -453,6 +583,15 @@ export default function MasterMenuPage() {
                         <td className="p-3 text-sm font-mono text-right">
                           {r.takaran} {r.satuan}
                         </td>
+                        <td className="p-3 text-right">
+                          <button
+                            title="Hapus"
+                            onClick={() => handleDeleteResep(r.id_resep)}
+                            className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 p-1.5 rounded-md transition-colors inline-flex"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -466,6 +605,48 @@ export default function MasterMenuPage() {
                 </p>
               </div>
             )}
+
+            {/* Form Input Resep */}
+            <div className="mt-6 pt-4 border-t border-border flex gap-3 items-end">
+              <div className="flex-1 space-y-1.5">
+                <Label className="uppercase text-[10px] font-bold tracking-widest text-muted-foreground">Bahan Baku</Label>
+                <Select
+                  value={resepForm.id_bahan}
+                  onValueChange={(v) => setResepForm((f) => ({ ...f, id_bahan: v }))}
+                >
+                  <SelectTrigger className="h-10 rounded-lg border-border bg-card">
+                    <SelectValue placeholder="Pilih bahan..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {dataBahan?.map((b) => (
+                      <SelectItem key={b.id_bahan} value={String(b.id_bahan)}>
+                        {b.nama_bahan}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="w-28 space-y-1.5">
+                <Label className="uppercase text-[10px] font-bold tracking-widest text-muted-foreground">Takaran</Label>
+                <div className="relative">
+                  <Input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="0"
+                    className="h-10 pr-10 rounded-lg border-border font-mono text-sm"
+                    value={resepForm.takaran}
+                    onChange={(e) => setResepForm((f) => ({ ...f, takaran: e.target.value }))}
+                  />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold uppercase text-muted-foreground">
+                    {dataBahan?.find((b) => String(b.id_bahan) === resepForm.id_bahan)?.satuan || "-"}
+                  </span>
+                </div>
+              </div>
+              <POSButton size="sm" variant="accent" className="h-10 w-10 shrink-0 rounded-lg" onClick={handleAddResep} aria-label="Tambah Resep">
+                <Plus className="w-5 h-5" />
+              </POSButton>
+            </div>
           </div>
 
           <DialogFooter>
