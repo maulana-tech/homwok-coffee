@@ -22,6 +22,7 @@ import { toast } from "sonner";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import type { Pegawai } from "@homwok/types";
 import { usePegawai } from "@/hooks/use-data";
+import api from "@/lib/api";
 import { DataTable, type DataTableColumn } from "@/components/master/data-table";
 import { DeleteConfirm } from "@/components/master/delete-confirm";
 
@@ -105,9 +106,17 @@ export default function MasterPegawaiPage() {
               }
             : p,
         ),
-      );
-      // TODO: await api.put(`/pegawai/${editing.id_pegawai}`, values)
-      toast.success(`Pegawai "${nama}" diperbarui`);
+      api.put(`/pegawai/${editing.id_pegawai}`, {
+        nama_lengkap: nama,
+        username,
+        peran: form.peran,
+        aktif: form.aktif,
+      }).then(() => {
+        toast.success(`Pegawai "${nama}" diperbarui`);
+      }).catch((err) => {
+        console.error("Gagal update pegawai:", err);
+        toast.error("Gagal memperbarui pegawai ke server.");
+      });
     } else {
       const nextId =
         rows.reduce((max, p) => Math.max(max, p.id_pegawai), 0) + 1;
@@ -119,8 +128,23 @@ export default function MasterPegawaiPage() {
         aktif: form.aktif,
       };
       setRows((prev) => [...prev, created]);
-      // TODO: await api.post('/pegawai', { ...values, kata_sandi: form.password })
-      toast.success(`Pegawai "${nama}" ditambahkan`);
+
+      api.post('/pegawai', {
+        nama_lengkap: nama,
+        username,
+        peran: form.peran,
+        aktif: form.aktif,
+        kata_sandi: form.password,
+      }).then((res) => {
+        const savedData = res.data;
+        setRows((prev) =>
+          prev.map((p) => (p.id_pegawai === nextId ? { ...p, id_pegawai: savedData.id_pegawai } : p))
+        );
+        toast.success(`Pegawai "${nama}" ditambahkan`);
+      }).catch((err) => {
+        console.error("Gagal tambah pegawai:", err);
+        toast.error("Gagal menambahkan pegawai ke server.");
+      });
     }
     setFormOpen(false);
   };
@@ -130,8 +154,14 @@ export default function MasterPegawaiPage() {
     setRows((prev) =>
       prev.filter((p) => p.id_pegawai !== deleteTarget.id_pegawai),
     );
-    // TODO: await api.delete(`/pegawai/${deleteTarget.id_pegawai}`)
-    toast.success(`Pegawai "${deleteTarget.nama_lengkap}" dihapus`);
+    
+    api.delete(`/pegawai/${deleteTarget.id_pegawai}`).then(() => {
+      toast.success(`Pegawai "${deleteTarget.nama_lengkap}" dihapus`);
+    }).catch((err) => {
+      console.error("Gagal hapus pegawai:", err);
+      toast.error("Gagal menghapus pegawai dari server.");
+    });
+    
     setDeleteTarget(null);
   };
 
