@@ -32,6 +32,7 @@ import type { Pembelian } from "@homwok/types";
 import { formatDate, formatRupiah } from "@homwok/lib";
 import { usePembelian, useBahan } from "@/hooks/use-data";
 import { toast } from "sonner";
+import api from "@/lib/api";
 
 /** Table row = a purchase header plus its line-item count (from the sample data). */
 type PembelianRow = Pembelian & { jumlah_item: number };
@@ -116,30 +117,34 @@ export default function PembelianPage() {
       return;
     }
 
-    // Each valid line becomes one FIFO lot on the backend: a `detail_pembelian`
-    // row created with qty_awal = sisa_qty = qty (harga_beli per base unit).
-    // TODO: await api.post('/pembelian', {
-    //   pemasok, tanggal_beli: tanggalBeli,
-    //   items: validLines.map((l) => ({
-    //     id_bahan: Number(l.id_bahan), qty: Number(l.qty), harga_beli: Number(l.harga_beli),
-    //   })),
-    // });
-
-    const seq = rows.length + 1;
-    const newRow: PembelianRow = {
-      id_pembelian: Date.now(),
-      id_pegawai: 0,
-      nomor_pembelian: makePoNumber(tanggalBeli, seq),
-      tanggal_beli: tanggalBeli,
+    const payload = {
       pemasok: pemasok.trim(),
-      total_beli: formTotal,
-      jumlah_item: validLines.length,
+      tanggal_beli: tanggalBeli,
+      items: validLines.map((l) => ({
+        id_bahan: Number(l.id_bahan),
+        qty: Number(l.qty),
+        harga_beli: Number(l.harga_beli),
+      })),
     };
 
-    setCreated((prev) => [newRow, ...prev]);
-    toast.success(`Pembelian ${newRow.nomor_pembelian} tersimpan`);
-    resetForm();
-    setOpen(false);
+    api.post('/pembelian', payload)
+      .then((res) => {
+        const savedData = res.data;
+        // The backend returns the full Pembelian object, but we need to add jumlah_item for the table
+        const newRow: PembelianRow = {
+          ...savedData,
+          jumlah_item: validLines.length,
+        };
+
+        setCreated((prev) => [newRow, ...prev]);
+        toast.success(`Pembelian ${newRow.nomor_pembelian} tersimpan ke database`);
+        resetForm();
+        setOpen(false);
+      })
+      .catch((err) => {
+        console.error("Gagal menyimpan pembelian:", err);
+        toast.error("Gagal menyimpan pembelian ke server.");
+      });
   };
 
   return (
