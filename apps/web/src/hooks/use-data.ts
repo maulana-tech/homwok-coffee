@@ -24,7 +24,7 @@ export function useMenus() {
     queryKey: ["menus"],
     queryFn: async () => {
       try {
-        const res = await api.get("/menu");
+        const res = await api.get("/menu?with=resep");
         return res.data;
       } catch (err) {
         console.warn("Gagal fetch /menu, menggunakan mock data:", err);
