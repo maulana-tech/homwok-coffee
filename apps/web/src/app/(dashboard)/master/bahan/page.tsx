@@ -22,6 +22,7 @@ import { formatRupiah } from "@homwok/lib";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, AlertTriangle } from "lucide-react";
 import { useBahan } from "@/hooks/use-data";
+import api from "@/lib/api";
 import type { SampleBahan } from "@/lib/sample-data";
 import { DataTable, type DataTableColumn } from "@/components/master/data-table";
 import { DeleteConfirm } from "@/components/master/delete-confirm";
@@ -105,9 +106,16 @@ export default function MasterBahanPage() {
               }
             : b,
         ),
-      );
-      // TODO: await api.put(`/bahan/${editing.id_bahan}`, values)
-      toast.success(`Bahan "${nama}" diperbarui`);
+      api.put(`/bahan_baku/${editing.id_bahan}`, {
+        nama_bahan: nama,
+        satuan: form.satuan,
+        stok_minimum: stokMin,
+      }).then(() => {
+        toast.success(`Bahan "${nama}" diperbarui`);
+      }).catch((err) => {
+        console.error("Gagal update:", err);
+        toast.error("Gagal memperbarui ke server.");
+      });
     } else {
       const nextId =
         rows.reduce((max, b) => Math.max(max, b.id_bahan), 0) + 1;
@@ -123,8 +131,21 @@ export default function MasterBahanPage() {
         status: deriveStatus(0, stokMin),
       };
       setRows((prev) => [...prev, created]);
-      // TODO: await api.post('/bahan', values)
-      toast.success(`Bahan "${nama}" ditambahkan`);
+      
+      api.post('/bahan_baku', {
+        nama_bahan: nama,
+        satuan: form.satuan,
+        stok_minimum: stokMin,
+      }).then((res) => {
+        const savedData = res.data;
+        setRows((prev) =>
+          prev.map((b) => (b.id_bahan === nextId ? { ...b, id_bahan: savedData.id_bahan } : b))
+        );
+        toast.success(`Bahan "${nama}" ditambahkan`);
+      }).catch((err) => {
+        console.error("Gagal tambah:", err);
+        toast.error("Gagal menambahkan ke server.");
+      });
     }
     setFormOpen(false);
   };
@@ -132,8 +153,14 @@ export default function MasterBahanPage() {
   const handleDelete = () => {
     if (!deleteTarget) return;
     setRows((prev) => prev.filter((b) => b.id_bahan !== deleteTarget.id_bahan));
-    // TODO: await api.delete(`/bahan/${deleteTarget.id_bahan}`)
-    toast.success(`Bahan "${deleteTarget.nama_bahan}" dihapus`);
+    
+    api.delete(`/bahan_baku/${deleteTarget.id_bahan}`).then(() => {
+      toast.success(`Bahan "${deleteTarget.nama_bahan}" dihapus`);
+    }).catch((err) => {
+      console.error("Gagal hapus:", err);
+      toast.error("Gagal menghapus dari server.");
+    });
+    
     setDeleteTarget(null);
   };
 
