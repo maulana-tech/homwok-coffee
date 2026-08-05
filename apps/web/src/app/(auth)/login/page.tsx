@@ -187,7 +187,7 @@ export default function LoginPage() {
           </form>
 
           {/* Quick Demo Login Selector */}
-          <div className="pt-6 border-t border-dashed border-border space-y-3">
+          {/*<div className="pt-6 border-t border-dashed border-border space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
                 Demo Login Cepat
@@ -220,7 +220,7 @@ export default function LoginPage() {
                 <span className="text-[10px] font-mono text-muted-foreground mt-0.5">User: manager</span>
               </button>
             </div>
-          </div>
+          </div>*/}
 
           {/* Footer Copyright */}
           <div className="pt-2 text-center text-[10px] text-muted-foreground/75 tracking-wider uppercase font-mono">
